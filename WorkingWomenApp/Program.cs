@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WorkingWomenApp.BLL.Repository;
+using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddTransient<IRepository, Repository>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
