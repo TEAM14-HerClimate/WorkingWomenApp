@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,107 +13,96 @@ using WorkingWomenApp.Database.Core;
 
 namespace WorkingWomenApp.BLL.Repository
 {
-    public class Repository<TEntity, TContext> : IRepository<TEntity> where TEntity : class, IEntity where TContext : ApplicationDbContext
+    public sealed partial class Repository<T> : IRepository<T> where T : Entity
     {
-        private readonly TContext _context;
-        private readonly IUnitOfWork<TContext> _unitOfWork;
 
-        public Repository(TContext context, IUnitOfWork<TContext> unitOfWork)
+        private readonly ApplicationDbContext _context;
+        private readonly DbSet<T> _model;
+        public Repository(ApplicationDbContext context)
         {
-            _context = context;
-            _unitOfWork = unitOfWork;
+            this._context = context;
+            _model = _context.Set<T>();
         }
 
-        public IQueryable<TEntity> Query()
+        public async Task AddAsync(T model)
+        => await _model.AddAsync(model);
+
+        public async Task AddRangeAsync(IEnumerable<T> models)
+        => await _model.AddRangeAsync(models);
+
+        public async Task DeleteAsync(long id)
         {
-            return _context.Set<TEntity>().AsQueryable();
+            T? model = await _context.FindAsync<T>(id);
+            if (model != null)
+                await DeleteAsync(model);
         }
 
-        public async Task<ICollection<TEntity>> GetAllAsync()
+        public async Task DeleteAsync(T model)
         {
-            return await _context.Set<TEntity>().ToListAsync();
+            if (_context.Entry(model).State is EntityState.Detached)
+                _context.Attach(model);
+
+            _model.Remove(model);
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task SoftDeleteAsync(long id)
         {
-            return await _context.Set<TEntity>().FindAsync(id);
+            T? model = await _context.FindAsync<T>(id);
+            if (model is not null)
+                await SoftDeleteAsync(model);
         }
 
-        public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task SoftDeleteAsync(T model)
         {
-            return await _context.Set<TEntity>().SingleOrDefaultAsync(predicate);
+            model.Delete();
+            await UpdateAsync(model);
         }
 
-        public async Task<ICollection<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task DeleteRangeAsync(IEnumerable<T> models)
+        => _model.RemoveRange(models);
+
+        public async Task SoftDeleteRangeAsync(IEnumerable<T> models)
         {
-            return await _context.Set<TEntity>().Where(predicate).ToListAsync();
-        }
-
-        public async Task<TEntity> AddAsync(TEntity entity)
-        {
-            _context.Set<TEntity>().Add(entity);
-
-            await _unitOfWork.Commit();
-
-            return entity;
-        }
-
-        public async Task<TEntity> UpdateAsync(TEntity entity)
-        {
-            if (entity == null)
+            foreach (T model in models)
             {
-                return null;
+                await SoftDeleteAsync(model);
             }
 
-            _context.Set<TEntity>().Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
-
-            await _unitOfWork.Commit();
-
-            return entity;
         }
 
-        public async Task<int> DeleteAsync(TEntity entity)
+        public async Task UpdateAsync(T model)
         {
-            _context.Set<TEntity>().Remove(entity);
-
-            return await _unitOfWork.Commit();
+            _context.Attach(model);
+            _context.Entry(model).State = EntityState.Modified;
         }
 
-        public IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> filterPredicate = null,
-                                           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderByPredicate = null,
-                                           string navigationProperties = "",
-                                           int? page = null,
-                                           int? pageSize = null)
+        public async Task UpdateRangeAsync(IEnumerable<T> models)
+        => _model.UpdateRange(models);
+
+        public async Task ExecuteDeleteAsync(Expression<Func<T, bool>> condition)
         {
-            IQueryable<TEntity> query = _context.Set<TEntity>();
-
-            if (filterPredicate != null)
-            {
-                query = query.Where(filterPredicate);
-            }
-
-            if (orderByPredicate != null)
-            {
-                query = orderByPredicate(query);
-            }
-
-            if (navigationProperties != null)
-            {
-                foreach (string navigationPropertyPath in navigationProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(navigationPropertyPath);
-                }
-            }
-
-            if (page != null && pageSize != null)
-            {
-                query = query
-                        .Skip((page.Value - 1) * pageSize.Value)
-                        .Take(pageSize.Value);
-            }
-
-            return query.ToList();
+            await _model.Where(condition)
+                  .ExecuteDeleteAsync();
         }
+
+        public async Task ExecuteUpdateAsync(Expression<Func<T, bool>> condition,
+          Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> updateExpression)
+        {
+            await _model.Where(condition)
+              .ExecuteUpdateAsync(updateExpression);
+        }
+
+        public async Task ExecuteUpdateAsync(Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> updateExpression)
+        {
+            await _model.ExecuteUpdateAsync(updateExpression);
+        }
+
+        public async Task TruncateTableAsync()
+        {
+            var tableName = _context.Model.FindEntityType(typeof(T)).GetTableName();
+            await _context.Database.ExecuteSqlRawAsync($"TRUNCATE TABLE {tableName}");
+        }
+
+
     }
 }
