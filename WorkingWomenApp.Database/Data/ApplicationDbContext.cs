@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.Data
 {
@@ -9,5 +10,8 @@ namespace WorkingWomenApp.Data
             : base(options)
         {
         }
+
+        public ApplicationUser ApplicationUsers { get; set; }
+        public SecurityRole SecurityRoles { get; set; }
     }
 }
