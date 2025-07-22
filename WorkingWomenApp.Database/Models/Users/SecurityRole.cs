@@ -9,5 +9,7 @@ namespace WorkingWomenApp.Database.Models.Users
 {
     public class SecurityRole : IdentityRole<Guid>
     {
+        public Guid Id { get; set; }
+        public SecurityRole() { }
     }
 }

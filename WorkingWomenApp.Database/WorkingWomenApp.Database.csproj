@@ -21,4 +21,8 @@
     <ProjectReference Include="..\WorkingWomenApp.Test\WorkingWomenApp.Test.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\NewFolder\" />
+  </ItemGroup>
+
 </Project>
