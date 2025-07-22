@@ -13,16 +13,31 @@ using WorkingWomenApp.Database.Core;
 
 namespace WorkingWomenApp.BLL.Repository
 {
-    public sealed partial class Repository<T> : IRepository<T> where T : Entity
+    public class Repository<T> : IRepository<T> where T : Entity
     {
 
         private readonly ApplicationDbContext _context;
         private readonly DbSet<T> _model;
+        private ApplicationDbContext appDbContext;
+        
+        private ApplicationDbContext dbContext;
+
         public Repository(ApplicationDbContext context)
         {
             this._context = context;
             _model = _context.Set<T>();
         }
+
+        //public Repository(ApplicationDbContext appDbContext)
+        //{
+        //    this.appDbContext = appDbContext;
+        //    this.unitOfWork = unitOfWork;
+        //}
+
+        //public Repository(ApplicationDbContext dbContext)
+        //{
+        //    this.dbContext = dbContext;
+        //}
 
         public async Task AddAsync(T model)
         => await _model.AddAsync(model);

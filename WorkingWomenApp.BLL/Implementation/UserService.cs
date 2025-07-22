@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkingWomenApp.BLL.Interfaces;
+using WorkingWomenApp.BLL.UnitOfWork;
+using WorkingWomenApp.Data;
+using WorkingWomenApp.Database.DTOs;
 using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.BLL.Implementation
@@ -15,15 +18,20 @@ namespace WorkingWomenApp.BLL.Implementation
         private readonly UserManager<ApplicationUser> _userManager;
 
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
 
-        private readonly IBackEndExceptionHandler _backEndExceptionHandler;
+    
 
-        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IBackEndExceptionHandler backedExceptionHandler)
+
+       
+
+        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IUnitOfWork<ApplicationDbContext> unitOfWork)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            _backEndExceptionHandler =
-                backedExceptionHandler ?? throw new ArgumentNullException(nameof(backedExceptionHandler));
+           
+
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<bool> Register(string userName, string password)
@@ -47,7 +55,7 @@ namespace WorkingWomenApp.BLL.Implementation
             }
             catch (Exception ex)
             {
-                _backEndExceptionHandler.ExceptionOperations("Error registering User", ex);
+              
 
                 return false;
             }
@@ -64,5 +72,9 @@ namespace WorkingWomenApp.BLL.Implementation
         {
             await _signInManager.SignOutAsync();
         }
+
+
+            
+    
     }
 }
