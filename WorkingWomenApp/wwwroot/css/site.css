@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     color: #1E1E1E;
-    font-family: 'Bitter',serif;
+    font-family: 'Bitter';
     
 }
 
@@ -152,7 +152,7 @@ nav {
 .login-card {
     background: white;
     border-radius: 20px;
-    padding: 3rem 2rem;
+    padding: 1rem 2rem;
     width: 100%;
     max-width: 420px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
@@ -189,7 +189,7 @@ nav {
         font-weight: 500;
     }
 
-    .form-group input {
+/*    .form-group input {
         width: 100%;
         padding: 0.8rem 1rem;
         border: 2px solid #e1e1e1;
@@ -202,7 +202,7 @@ nav {
             outline: none;
             border-color: #000;
             box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
-        }
+        }*/
 
 .remember-forgot {
     display: flex;
@@ -236,12 +236,11 @@ nav {
 }
 
 .login-btn {
-    width: 100%;
-    padding: 1rem;
+    
+   
     background: #CB769E;
     color: #1E1E1E;
-    border: none;
-    border-radius: 12px;
+    
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
