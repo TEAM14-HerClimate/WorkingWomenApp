@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using WorkingWomenApp.Models;
+using WorkingWomenApp.Database.Models;
 
 namespace WorkingWomenApp.Controllers
 {
