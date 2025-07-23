@@ -1,8 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model WorkingWomenApp.Database.DTOs.UserDtos.LoginDto
+@{}
 
 <div class="col-md-4 offset-md-4 mt-3">
 <div class="login-card">
@@ -11,26 +8,28 @@
         <h1>Login</h1>
         <p>Enter your credentials to access your account</p>
     </div>
-
-    <form id="loginForm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form id="loginForm" method="post">
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email"
+            <label  asp-for="Email">Email</label>
+                <input asp-for="Email" type="email" id="form2Example17" class="form-control form-control-lg" />
+            @* <input type="email"
                        class="form-control"
-                   id="email"
+                       name="Email"
+                       id="Email"
                    placeholder="name@company.com"
-                   autocomplete="email">
-            <div class="error" id="emailError"></div>
+                   autocomplete="email"> *@
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
+                <label for="Password" asp-for="Password">Password</label>
             <input type="password"
-                   id="password"
+                       asp-for="Password"
                        class="form-control"
                    placeholder="Enter your password"
                    autocomplete="current-password">
-            <div class="error" id="passwordError"></div>
+                <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
         <div class="remember-forgot">
@@ -43,7 +42,7 @@
 
 
             <div class="d-grid gap-2  mx-auto">
-                <button type="submit" class=" btn login-btn" id="loginButton">
+                <button type="submit" class=" btn login-btn">
                     Sign in
                 </button>
             </div>

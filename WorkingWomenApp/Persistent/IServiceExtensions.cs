@@ -24,7 +24,7 @@ public static class IServiceExtensions
 
 
         services.AddMemoryCache();
-        services.AddTransient(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+      services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<DbContext, ApplicationDbContext>();
 
         services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
