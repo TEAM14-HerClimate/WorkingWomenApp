@@ -13,11 +13,11 @@ using WorkingWomenApp.Database.Core;
 
 namespace WorkingWomenApp.BLL.Repository
 {
-    public class Repository<T> : IRepository<T> where T : Entity
+    public class Repository<T> : IRepository<T> where T  : class
     {
 
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<T> _model;
+        protected readonly DbSet<T> _model;
         private ApplicationDbContext appDbContext;
         
         private ApplicationDbContext dbContext;
@@ -45,7 +45,7 @@ namespace WorkingWomenApp.BLL.Repository
         public async Task AddRangeAsync(IEnumerable<T> models)
         => await _model.AddRangeAsync(models);
 
-        public async Task DeleteAsync(long id)
+        public async Task DeleteAsync(Guid id)
         {
             T? model = await _context.FindAsync<T>(id);
             if (model != null)
@@ -60,30 +60,30 @@ namespace WorkingWomenApp.BLL.Repository
             _model.Remove(model);
         }
 
-        public async Task SoftDeleteAsync(long id)
-        {
-            T? model = await _context.FindAsync<T>(id);
-            if (model is not null)
-                await SoftDeleteAsync(model);
-        }
+        //public async Task SoftDeleteAsync(Guid id)
+        //{
+        //    T? model = await _context.FindAsync<T>(id);
+        //    if (model is not null)
+        //        await SoftDeleteAsync(model);
+        //}
 
-        public async Task SoftDeleteAsync(T model)
-        {
-            model.Delete();
-            await UpdateAsync(model);
-        }
+        //public async Task SoftDeleteAsync(T model)
+        //{
+        //    _model.;
+        //    await UpdateAsync(model);
+        //}
 
         public async Task DeleteRangeAsync(IEnumerable<T> models)
         => _model.RemoveRange(models);
 
-        public async Task SoftDeleteRangeAsync(IEnumerable<T> models)
-        {
-            foreach (T model in models)
-            {
-                await SoftDeleteAsync(model);
-            }
+        //public async Task SoftDeleteRangeAsync(IEnumerable<T> models)
+        //{
+        //    foreach (T model in models)
+        //    {
+        //        await SoftDeleteAsync(model);
+        //    }
 
-        }
+        //}
 
         public async Task UpdateAsync(T model)
         {

@@ -10,15 +10,23 @@ using System.Threading.Tasks;
 using WorkingWomenApp.BLL.Repository;
 using WorkingWomenApp.Data;
 using WorkingWomenApp.Database.Core;
+using System.Data;
+
+using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.BLL.UnitOfWork
 {
-    public interface IUnitOfWork<TContext> : IDisposable where TContext : DbContext
-    {
-        IRepository<Entity> GetRepository<T>() where T : class;
+   
+        public interface IUnitOfWork : IDisposable
+        {
+            IRepository<ApplicationUser> AppUserRepository { get; }
 
-        Task<int> Commit();
+           
+            IUserRepository UserRepository { get; }
+         
 
-        void Rollback();
-    }
+            void SaveChanges();
+            Task SaveChangesAsync();
+        }
+    
 }

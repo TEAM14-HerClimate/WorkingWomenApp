@@ -17,19 +17,19 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace WorkingWomenApp.BLL.Repository
 {
-    public interface IRepository<T> where T : Entity
+    public interface IRepository<T> where T : class
     {
 
         Task AddAsync(T model);
         Task AddRangeAsync(IEnumerable<T> models);
         Task UpdateAsync(T model);
         Task UpdateRangeAsync(IEnumerable<T> models);
-        Task DeleteAsync(long id);
+        Task DeleteAsync(Guid id);
         Task DeleteAsync(T model);
-        Task SoftDeleteAsync(long id);
-        Task SoftDeleteAsync(T model);
+        //Task SoftDeleteAsync(Guid id);
+        //Task SoftDeleteAsync(T model);
         Task DeleteRangeAsync(IEnumerable<T> models);
-        Task SoftDeleteRangeAsync(IEnumerable<T> models);
+        //Task SoftDeleteRangeAsync(IEnumerable<T> models);
         Task ExecuteDeleteAsync(Expression<Func<T, bool>> condition);
         Task ExecuteUpdateAsync(Expression<Func<T, bool>> condition, Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> updateExpression);
         Task ExecuteUpdateAsync(Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> updateExpression);
