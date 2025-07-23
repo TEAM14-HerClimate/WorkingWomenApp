@@ -1,17 +1,16 @@
-﻿using System;
+﻿
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using WorkingWomenApp.Database.Core.CustomEntities;
+using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.BLL.Interfaces
 {
-       public interface IUserService
+    public interface IUserService
     {
-        Task<bool> Register(string userName, string password);
+        //Task<ApplicationUser> Add(ApplicationUser user);
 
-        Task<bool> Login(string userName, string password);
-
-        Task Logout();
     }
 }
