@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WorkingWomenApp.Database.Core
 {
-    public abstract class Entity : IEquatable<Entity>
+    public abstract class Entity 
     {
         public long Id { get; private set; }
         public long CreateDate { get; private set; }

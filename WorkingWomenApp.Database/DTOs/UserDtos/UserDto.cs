@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace WorkingWomenApp.Database.DTOs
+namespace WorkingWomenApp.Database.DTOs.UserDtos
 {
     public class UserDto
     {
