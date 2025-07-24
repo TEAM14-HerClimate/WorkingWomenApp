@@ -21,17 +21,6 @@ public static class IServiceExtensions
                 o => o.UseCompatibilityLevel(120));
         });
 
-
-
-        services.AddMemoryCache();
-      services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<DbContext, ApplicationDbContext>();
-
-        services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
-
-
-        //services.AddSingleton<DataIntialiser>();
-
         services.AddIdentity<ApplicationUser, SecurityRole>(
                 options => options.SignIn.RequireConfirmedAccount = true
             )
@@ -42,6 +31,17 @@ public static class IServiceExtensions
         {
             options.TokenLifespan = TimeSpan.FromHours(3); // Set token expiration to 3 hours
         });
+
+        services.AddMemoryCache();
+      services.AddScoped<IUnitOfWork, UnitOfWork>();
+     
+
+        services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
+
+        //services.AddSingleton<DataIntialiser>();
+
+        
         return services;
     }
 }
