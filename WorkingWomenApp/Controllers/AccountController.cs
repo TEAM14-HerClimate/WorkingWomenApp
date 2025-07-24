@@ -10,11 +10,11 @@ namespace WorkingWomenApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<SecurityRole> _roleManager;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<SecurityRole> roleManager,
             SignInManager<ApplicationUser> signInManager)
         {
             _roleManager = roleManager;
