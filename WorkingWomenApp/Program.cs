@@ -33,6 +33,7 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWeatherApiService, WeatherApiService>();
 
 builder.Services.AddControllersWithViews();
 
