@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using WorkingWomenApp.Database.Models.Climate;
 using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.Data
@@ -14,5 +15,6 @@ namespace WorkingWomenApp.Data
 
         public ApplicationUser ApplicationUsers { get; set; }
         public SecurityRole SecurityRoles { get; set; }
+        public Article Articles { get; set; }
     }
 }

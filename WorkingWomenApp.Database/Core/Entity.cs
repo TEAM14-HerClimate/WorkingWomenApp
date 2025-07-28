@@ -8,11 +8,11 @@ namespace WorkingWomenApp.Database.Core
 {
     public abstract class Entity 
     {
-        public long Id { get; private set; }
-        public long CreateDate { get; private set; }
-        public long? UpdateDate { get; private set; }
-        public long? DeleteDate { get; private set; }
-        public bool IsDeleted { get; private set; } = false;
+        public Guid Id { get; private set; }
+        public DateTime CreateDate { get; private set; }
+        public DateTime? UpdateDate { get; private set; }
+        public DateTime? DeleteDate { get; private set; }
+        public Boolean? IsDeleted { get; private set; } = false;
 
         private int? _hashCode;
     
@@ -21,7 +21,7 @@ namespace WorkingWomenApp.Database.Core
 
         public Entity Create()
         {
-            this.CreateDate = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            this.CreateDate = DateTime.UtcNow;
             return this;
         }
 
@@ -30,7 +30,7 @@ namespace WorkingWomenApp.Database.Core
             if (CreateDate == default)
                 throw new Exception("Entity State is not valid for updating");
 
-            this.UpdateDate = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            this.UpdateDate = DateTime.UtcNow;
             return this;
         }
 
@@ -39,7 +39,7 @@ namespace WorkingWomenApp.Database.Core
             if (CreateDate == default)
                 throw new Exception("Entity State is not valid for deleting");
 
-            this.DeleteDate = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            this.DeleteDate = DateTime.UtcNow;
             this.IsDeleted = true;
             return this;
         }
