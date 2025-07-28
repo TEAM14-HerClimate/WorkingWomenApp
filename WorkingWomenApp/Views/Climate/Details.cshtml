@@ -1,0 +1,80 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+}
+
+<div class="col-md-4 offset-md-4 mt-3">
+    <div class="login-card">
+        <div class="brand">
+
+            <h1>Climate Form</h1>
+            <p>To customise your experience, create an account</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="FullName">Full Name</label>
+                <input type="email"
+                       class="form-control"
+                       id="FullName"
+                       placeholder="monica aisha"
+                       autocomplete="fullName">
+                <div class="error" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="PhoneNumber">Phone Number</label>
+                <input type="email"
+                       class="form-control"
+                       id="PhoneNumber"
+                       placeholder="0772123456"
+                       autocomplete="PhoneNumber">
+                <div class="error" id="PhoneNumberError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email"
+                       class="form-control"
+                       id="email"
+                       placeholder="name@company.com"
+                       autocomplete="email">
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password"
+                       id="password"
+                       class="form-control"
+                       placeholder="Enter your password"
+                       autocomplete="current-password">
+                <div class="error" id="passwordError"></div>
+            </div>
+
+            <div class="remember-forgot">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+
+            <div class="d-grid gap-2  mx-auto">
+                <button type="submit" class=" btn login-btn" id="loginButton">
+                    Sign in
+                </button>
+            </div>
+
+
+
+        </form>
+
+
+
+        <div class="signup-link">
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+        </div>
+    </div>
+</div>
