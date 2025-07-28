@@ -25,7 +25,11 @@
     <link rel="stylesheet" href="~/css/src/input.css" />
     <link rel="stylesheet" href="~/css/src/css/tailwind.css" /> *@
     <link rel="stylesheet" href="~/css/style.css">
-    @* <link rel="stylesheet" href="~/css/site.css"> *@
+    <link rel="stylesheet" href="~/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/fontawesome/css/brands.min.css">
+    <link rel="stylesheet" href="~/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/fontawesome/css/regular.min.css">
+    <link rel="stylesheet" href="~/fontawesome/css/solid.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet'>
 
@@ -34,15 +38,15 @@
 <div class="all">
 <!-- ====== Navbar Section Start -->
 <nav class="side-nav">
- 
+    <div class="logo">
+        <div >Her<span style="color:#49AA97;">Climate</span></div>
+    </div>
     <ul class="nav-menu">
-        <div class="logo">
-            <a href="#">Her<span style="color:#49AA97;">Climate</span></a>
-        </div>
-        <li class="nav-item"><a href="#"><i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span></a></li>
-        <li class="nav-item"><a href="#"><i class="fa fa-user"></i><span class="menu-text">Users</span></a></li>
-        <li class="nav-item active"><a href="#"><i class="fas fa-file-alt"></i><span class="menu-text">Posts</span></a></li>
-        <li class="nav-item"><a href="#"><i class="fas fa-play "></i><span class="menu-text">Media</span></a></li>
+       
+                <li class="nav-item active"><a href="#"><i class="fa-regular fa-house"></i><span class="menu-text">Dashboard</span></a></li>
+                <li class="nav-item"><a href="#"><i class="fa-solid fa-notes-medical"></i><span class="menu-text">Health Info</span></a></li>
+                <li class="nav-item "><a href="#"><i class="fa-solid fa-cloud-meatball"></i><span class="menu-text">Climate Info</span></a></li>
+        <li class="nav-item"><a href="#"><i class="fas fa-play "></i><span class="menu-text">Child care</span></a></li>
         <li class="nav-item"><a href="#"><i class="fas fa-sign-out-alt"></i><span class="menu-text">exit</span></a></li>
     </ul>
 </nav>
@@ -51,10 +55,7 @@
 
 <!-- ====== Navbar Section End -->
 <div class="content">
-    <div class="greeting">
-        <h2>Good Morning Champ!</h2>
-        <p>Time to seize the day 🌞</p>
-    </div>
+    
     <main>
     @RenderBody()
             </main>
@@ -70,7 +71,11 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-
+<script src="~/fontawesome/js/all.min.js" asp-append-version="true"></script>
+<script src="~/fontawesome/js/brands.min.js" asp-append-version="true"></script>
+<script src="~/fontawesome/js/fontawesome.min.js" asp-append-version="true"></script>
+<script src="~/fontawesome/js/regular.min.js" asp-append-version="true"></script>
+    <script src="~/fontawesome/js/solid.min.js" asp-append-version="true"></script>
 <script>
         $(function() {
                 $("li").click(function(e) {
