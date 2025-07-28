@@ -5,6 +5,8 @@ using WorkingWomenApp.Database.Models;
 
 namespace WorkingWomenApp.Controllers
 {
+
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -25,11 +27,15 @@ namespace WorkingWomenApp.Controllers
             return View();
         }
 
+
+        [ResponseCache(VaryByHeader = "User-Agent", Duration = 10800, Location = ResponseCacheLocation.Any)]
         public async Task<JsonResult> GetWeatherData(double latitude, double longitude)
         {
 
+           latitude  = Math.Round(latitude, 4);
+           longitude = Math.Round(longitude, 4);
 
-          var (success, errorMessage, weatherData) = await _weatherApiService.GetWeatherInfo(latitude, longitude);
+            var (success, errorMessage, weatherData) = await _weatherApiService.GetWeatherInfo(latitude, longitude);
             if (success)
             {
                 if (weatherData == null)

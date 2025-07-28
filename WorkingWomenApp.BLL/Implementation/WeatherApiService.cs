@@ -36,8 +36,12 @@ namespace WorkingWomenApp.BLL.Implementation
             try
             {
 
+                var customUserAgent = "MyWeatherApp/1.0 (https://github.com/bonolives/Team14)";
                 var request = new HttpRequestMessage(HttpMethod.Get, $"weatherapi/locationforecast/2.0/compact?lat={latitude}&lon={longitude}");
+
+              
                 //request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                //request.Headers.Add("User-Agent", customUserAgent);
                 var response = await client.SendAsync(request);
 
                 if (!response.IsSuccessStatusCode)

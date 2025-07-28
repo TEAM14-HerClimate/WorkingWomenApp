@@ -36,6 +36,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWeatherApiService, WeatherApiService>();
 
 builder.Services.AddControllersWithViews();
+//builder.Services.AddControllers();
+builder.Services.AddResponseCaching();
 
 var app = builder.Build();
 
@@ -51,6 +53,7 @@ else
     app.UseHsts();
 }
 
+app.UseResponseCaching();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
