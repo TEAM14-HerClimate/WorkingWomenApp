@@ -25,7 +25,7 @@ namespace WorkingWomenApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetWeatherData(double latitude, double longitude)
+        public async Task<JsonResult> GetWeatherData(double latitude, double longitude)
         {
 
 

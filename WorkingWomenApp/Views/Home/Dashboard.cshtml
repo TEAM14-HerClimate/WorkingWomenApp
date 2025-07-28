@@ -266,7 +266,7 @@
 							acc: position.coords.accuracy
 						};
 						console.log(`You are currently at ${userposition.lat} by ${userposition.lng} alt ${userposition.alt} acc ${userposition.acc}`);
-								success({userposition.lat,userposition.lng )
+								success(userposition.lat,userposition.lng )
 					},
 					//the browser supports geolocation but they denied permission
 					function () {
@@ -286,23 +286,22 @@
 			// consoleconsole.warn(`ERROR(${err.code}): ${err.message}`);
 		}
 
-		function success(lat,lng ) {
-			const crd = pos.coords;
+		function success(latitude,longitude ) {
 
-			console.log(lat,lng);
 
-		$.ajax({
-				url: '/GetWeatherData',
-				type: 'POST',
-				data: { latitude: lat, longitude: lng },
-				success: function (response) {
-					console.log("API Response:", response);
-					// Do something with the data
-				},
-				error: function () {
-					alert("Failed to get location data");
-				}
-			});
+			console.log(latitude,longitude);
+
+			$.get("@Url.Action("GetWeatherData", "Home")", {latitude: latitude, longitude: longitude }, function (response) {
+					console.log(response)
+					if (response.success) {
+						alert(response.message);
+						window.location.href = "/dashboard"; // Navigate to dashboard manually
+					} else {
+						alert("Error: " + response.message);
+					}
+				}).fail(function (jqXHR, textStatus, errorThrown) {
+					alert("AJAX error: " + textStatus + " - " + errorThrown);
+				});
 
 		}
 		});

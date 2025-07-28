@@ -36,7 +36,7 @@ namespace WorkingWomenApp.BLL.Implementation
             try
             {
 
-                var request = new HttpRequestMessage(HttpMethod.Get, $"weatherapi/locationforecast/2.0/complete?{latitude}&{(longitude)}");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"weatherapi/locationforecast/2.0/compact?lat={latitude}&lon={longitude}");
                 //request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response = await client.SendAsync(request);
 
