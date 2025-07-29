@@ -15,6 +15,6 @@ namespace WorkingWomenApp.Data
 
         public ApplicationUser ApplicationUsers { get; set; }
         public SecurityRole SecurityRoles { get; set; }
-        public Article Articles { get; set; }
+        public Article Articles { get; set; }  
     }
 }

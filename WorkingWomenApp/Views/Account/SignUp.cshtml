@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WorkingWomenApp.Database.DTOs.UserDtos.UserCreateDto
 @{
 }
 <div class="col-md-4 offset-md-4 mt-3">
@@ -11,24 +9,35 @@
             <p>To customise your experience, create an account</p>
         </div>
 
-        <form id="loginForm">
+        <form id="signUpForm" method="post">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
             <div class="form-group">
-                <label for="FullName">Full Name</label>
-                <input type="email"
+                <label for="FirstName">First Name</label>
+                <input type="text"
                        class="form-control"
-                       id="FullName"
-                       placeholder="monica aisha"
-                       autocomplete="fullName">
-                <div class="error" id="emailError"></div>
+                       id="FirstName"
+                       placeholder="Monica"
+                       autocomplete="FirstName">
+                <div class="error" id="FirstNameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="LastName">Last Name</label>
+                <input type="text"
+                       class="form-control"
+                       id="LastName"
+                       placeholder="Matovu"
+                       autocomplete="LastName">
+                <div class="error" id="LastNameError"></div>
             </div>
             <div class="form-group">
                 <label for="PhoneNumber">Phone Number</label>
-                <input type="email"
+                <input type="text"
                        class="form-control"
                        id="PhoneNumber"
                        placeholder="0772123456"
                        autocomplete="PhoneNumber">
-                <div class="error" id="emailError"></div>
+                <div class="error" id="PhoneNumberError"></div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -41,13 +50,22 @@
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="Password">Password</label>
                 <input type="password"
-                       id="password"
+                       id="Password"
                        class="form-control"
                        placeholder="Enter your password"
                        autocomplete="current-password">
-                <div class="error" id="passwordError"></div>
+                <div class="error" id="PasswordError"></div>
+            </div>
+            <div class="form-group">
+                <label for="ConfirmPassword">Confirm Password</label>
+                <input type="password"
+                       id="ConfirmPassword"
+                       class="form-control"
+                       placeholder="Confirm your password"
+                       autocomplete="current-password">
+                <div class="error" id="ConfirmPasswordError"></div>
             </div>
 
             <div class="remember-forgot">
@@ -60,8 +78,8 @@
 
 
             <div class="d-grid gap-2  mx-auto">
-                <button type="submit" class=" btn login-btn" id="loginButton">
-                    Sign in
+                <button type="submit" class=" btn login-btn" id="SignUpButton">
+                    Sign Up
                 </button>
             </div>
 
@@ -72,7 +90,14 @@
 
 
         <div class="signup-link">
-            <p>Don't have an account? <a href="#">Sign up</a></p>
+            <p>Have an account? <a asp-controller="Account" asp-action="Login">Login</a></p>
         </div>
     </div>
 </div>
+
+                
+@section Scripts{
+    <script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    </script>
+}

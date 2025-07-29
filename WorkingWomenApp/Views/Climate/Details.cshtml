@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model WorkingWomenApp.Database.Models.Climate.Article
 @{
     Layout = "_Layout";
 }
@@ -9,11 +10,11 @@
     <div class="login-card">
         <div class="brand">
 
-            <h1>Climate Form</h1>
+            <h1>Add Article Form</h1>
             <p>To customise your experience, create an account</p>
         </div>
 
-        <form id="loginForm">
+        <form id="articlForm">
             <div class="form-group">
                 <label for="FullName">Full Name</label>
                 <input type="email"
