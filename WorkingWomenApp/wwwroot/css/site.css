@@ -163,7 +163,7 @@ nav {
     border-radius: 20px;
     padding: 1rem 2rem;
     width: 100%;
-    max-width: 420px;
+  /*  max-width: 420px;*/
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 

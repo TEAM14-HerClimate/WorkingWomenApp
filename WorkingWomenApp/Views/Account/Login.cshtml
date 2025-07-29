@@ -1,60 +1,65 @@
 ﻿@model WorkingWomenApp.Database.DTOs.UserDtos.LoginDto
 @{}
-
-<div class="col-md-4 offset-md-4 mt-3">
-<div class="login-card">
-    <div class="brand">
-      
-        <h1>Login</h1>
-        <p>Enter your credentials to access your account</p>
+<div class="row">
+    <div class="col-md-6  mt-5">
+        <img src="~/images/chosen/chosen/pexels-b-aristotle-guweh-jr-1643208950-28594411.jpg" height="100%" width="100%"/>
     </div>
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <form id="loginForm" method="post">
-        <div class="form-group">
-            <label  asp-for="Email">Email</label>
-                <input asp-for="Email" type="email" id="form2Example17" class="form-control form-control-lg" />
-            @* <input type="email"
-                       class="form-control"
-                       name="Email"
-                       id="Email"
-                   placeholder="name@company.com"
-                   autocomplete="email"> *@
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
+    <div class="col-md-6 mt-5">
+        <div class="col-md-8 offset-md-2">
+            <div class="login-card">
+                <div class="brand">
 
-        <div class="form-group">
-                <label for="Password" asp-for="Password">Password</label>
-            <input type="password"
-                       asp-for="Password"
-                       class="form-control"
-                   placeholder="Enter your password"
-                   autocomplete="current-password">
-                <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
+                    <h1>Login</h1>
+                    <p>Enter your credentials to access your account</p>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <form id="loginForm" method="post">
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "name@company.com" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
-        <div class="remember-forgot">
-            <div class="remember-me">
-                <input type="checkbox" id="remember">
-                <label for="remember">Remember me</label>
+                    </div>
+
+                    <div class="form-group">
+
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="remember-forgot">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+
+
+                    <div class="d-grid gap-2  mx-auto">
+                        <button type="submit" class=" btn login-btn">
+                            Login
+                        </button>
+                    </div>
+
+
+
+                </form>
+
+
+
+                <div class="signup-link">
+                    <p>Don't have an account? <a asp-controller="Account" asp-action="SignUp">Sign up</a></p>
+                </div>
             </div>
-            <a href="#" class="forgot-password">Forgot password?</a>
         </div>
-
-
-            <div class="d-grid gap-2  mx-auto">
-                <button type="submit" class=" btn login-btn">
-                    Login
-                </button>
-            </div>
-
-
-           
-    </form>
-
-
-
-    <div class="signup-link">
-            <p>Don't have an account? <a asp-controller="Account" asp-action="SignUp">Sign up</a></p>
     </div>
 </div>
-</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

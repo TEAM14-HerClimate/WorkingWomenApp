@@ -3,16 +3,19 @@
 }
 
 
-<div class="center row">
-    <div class="col-md-6">
+<div class="center row ">
+    <div class="col-md-6 mt-5">
         <div class="title">Welcome to Her<span style="color:#49AA97;">Climate</span></div>
         <div class="sub_title">Growing Futures,<br/> Harvesting Success</div>
         <div class="btns mt-5 p-3">
-            <button>Visitor Dashboard</button>
-            <button>Login</button>
+            <a asp-controller="Home" asp-action="Dashboard">  <button>
+                Visitor Dashboard
+                </button>
+            </a>
+            <a asp-controller="Account" asp-action="Login"><button>Login</button></a>
         </div>
     </div>
     <div class="col-md-6 ">
-       <img src="~/images/happy_women.jpg" height="100%" width="100%"/>
+       <img src="~/images/chosen/chosen/pexels-khanhhoangminh-8613971.jpg" height="100%" width="100%"/>
    </div>
 </div>
