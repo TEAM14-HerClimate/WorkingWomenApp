@@ -81,10 +81,10 @@ namespace WorkingWomenApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(UserCreateDto registerVM)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(registerVM);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(registerVM);
+            //}
             //registerVM.Roles = _roleManager.Roles.Select(x => new SelectListItem
             //{
             //    Text = x.Name,
@@ -99,7 +99,7 @@ namespace WorkingWomenApp.Controllers
                 NormalizedEmail = registerVM.Email.ToUpper(),
                 EmailConfirmed = true,
                 UserName = registerVM.Email,
-                //CreatedAt = DateTime.Now
+                Password = registerVM.Password
             };
 
             var result = await _userManager.CreateAsync(user, registerVM.Password);
@@ -131,7 +131,7 @@ namespace WorkingWomenApp.Controllers
                 ModelState.AddModelError("", error.Description);
             }
 
-            return RedirectToAction("Dashboard", "Home");
+            return View(registerVM);
         }
 
         public async Task<IActionResult> Logout()
