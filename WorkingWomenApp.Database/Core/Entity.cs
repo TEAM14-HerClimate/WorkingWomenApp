@@ -8,11 +8,11 @@ namespace WorkingWomenApp.Database.Core
 {
     public abstract class Entity 
     {
-        public Guid Id { get; private set; }
-        public DateTime CreateDate { get; private set; }
-        public DateTime? UpdateDate { get; private set; }
-        public DateTime? DeleteDate { get; private set; }
-        public Boolean? IsDeleted { get; private set; } = false;
+        public Guid Id { get;  set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime? UpdateDate { get;  set; }
+        public DateTime? DeleteDate { get;  set; }
+        public Boolean? IsDeleted { get;  set; } = false;
 
         private int? _hashCode;
     

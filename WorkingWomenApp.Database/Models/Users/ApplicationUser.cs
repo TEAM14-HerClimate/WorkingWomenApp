@@ -10,7 +10,7 @@ namespace WorkingWomenApp.Database.Models.Users
 {
     public class ApplicationUser : IdentityUser<Guid>
     {
-        public Guid Id {  get; set; }
+        //public Guid Id {  get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
