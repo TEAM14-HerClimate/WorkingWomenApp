@@ -11,7 +11,7 @@ using WorkingWomenApp.BLL.Repository;
 using WorkingWomenApp.Data;
 using WorkingWomenApp.Database.Core;
 using System.Data;
-
+using WorkingWomenApp.Database.Models.Climate;
 using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.BLL.UnitOfWork
@@ -19,13 +19,13 @@ namespace WorkingWomenApp.BLL.UnitOfWork
    
         public interface IUnitOfWork : IDisposable
         {
-            IRepository<ApplicationUser> AppUserRepository { get; }
+            //IRepository<ApplicationUser> AppUserRepository { get; }
 
            
             IUserRepository UserRepository { get; }
-         
+        IRepository<Article> ArticleRepository { get; }
 
-            void SaveChanges();
+        void SaveChanges();
             Task SaveChangesAsync();
         }
     

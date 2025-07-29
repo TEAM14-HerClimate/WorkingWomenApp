@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using WorkingWomenApp.BLL.Repository;
 using WorkingWomenApp.Data;
 using WorkingWomenApp.Database.Core;
-
+using WorkingWomenApp.Database.Models.Climate;
 using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.BLL.UnitOfWork
@@ -20,8 +20,8 @@ namespace WorkingWomenApp.BLL.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        private readonly IRepository<ApplicationUser> _appUserRepository;
-
+        //private readonly IRepository<ApplicationUser> _appUserRepository;
+        private readonly IRepository<Article> _articleRepository;
         private readonly IUserRepository _userRepository;
 
 
@@ -30,10 +30,10 @@ namespace WorkingWomenApp.BLL.UnitOfWork
             _context = context;
         }
 
-        public IRepository<ApplicationUser> AppUserRepository => _appUserRepository ?? new Repository<ApplicationUser>(_context);
+        //public IRepository<ApplicationUser> AppUserRepository => _appUserRepository ?? new Repository<ApplicationUser>(_context);
       
         public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context);
-     
+        public IRepository<Article> ArticleRepository => _articleRepository ?? new Repository<Article>(_context);
 
         public void Dispose()
         {

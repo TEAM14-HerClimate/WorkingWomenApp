@@ -7,7 +7,7 @@ using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.BLL.Repository
 {
-    public interface IUserRepository: IRepository<ApplicationUser>
+    public interface IUserRepository
     {
         
     }

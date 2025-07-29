@@ -13,7 +13,7 @@ using WorkingWomenApp.Database.Core;
 
 namespace WorkingWomenApp.BLL.Repository
 {
-    public class Repository<T> : IRepository<T> where T  : class
+    public class Repository<T> : IRepository<T> where T  : Entity
     {
 
         private readonly ApplicationDbContext _context;
@@ -38,6 +38,67 @@ namespace WorkingWomenApp.BLL.Repository
         //{
         //    this.dbContext = dbContext;
         //}
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null,
+            bool tracked = false)
+        {
+            IQueryable<T> query = tracked ? _model : _model.AsNoTracking();
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
+            // Ensure the filter is applied to the query
+            query = query.Where(filter);
+
+            // Use FirstOrDefaultAsync which is inherently asynchronous
+            return await query.FirstOrDefaultAsync();
+        }
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        {
+            IQueryable<T> query = _model;
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            // Use the AnyAsync method which is inherently asynchronous
+            return await query.AnyAsync(filter);
+        }
+        public async Task<T> GetById(Guid id)
+        {
+            return await _model.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null)
+        {
+            IQueryable<T> query = _model;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            return await query.ToListAsync();
+        }
 
         public async Task AddAsync(T model)
         => await _model.AddAsync(model);
@@ -60,30 +121,30 @@ namespace WorkingWomenApp.BLL.Repository
             _model.Remove(model);
         }
 
-        //public async Task SoftDeleteAsync(Guid id)
-        //{
-        //    T? model = await _context.FindAsync<T>(id);
-        //    if (model is not null)
-        //        await SoftDeleteAsync(model);
-        //}
+        public async Task SoftDeleteAsync(Guid id)
+        {
+            T? model = await _context.FindAsync<T>(id);
+            if (model is not null)
+                await SoftDeleteAsync(model);
+        }
 
-        //public async Task SoftDeleteAsync(T model)
-        //{
-        //    _model.;
-        //    await UpdateAsync(model);
-        //}
+        public async Task SoftDeleteAsync(T model)
+        {
+            _model.Remove(model);
+            await UpdateAsync(model);
+        }
 
         public async Task DeleteRangeAsync(IEnumerable<T> models)
         => _model.RemoveRange(models);
 
-        //public async Task SoftDeleteRangeAsync(IEnumerable<T> models)
-        //{
-        //    foreach (T model in models)
-        //    {
-        //        await SoftDeleteAsync(model);
-        //    }
+        public async Task SoftDeleteRangeAsync(IEnumerable<T> models)
+        {
+            foreach (T model in models)
+            {
+                await SoftDeleteAsync(model);
+            }
 
-        //}
+        }
 
         public async Task UpdateAsync(T model)
         {

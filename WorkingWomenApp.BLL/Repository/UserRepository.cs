@@ -7,15 +7,15 @@ using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.BLL.Repository
 {
-    public class UserRepository: Repository<ApplicationUser>, IUserRepository
+    public class UserRepository: IUserRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public UserRepository(ApplicationDbContext context) : base(context)
+        public UserRepository(ApplicationDbContext context) 
         {
             _context = context;
         }
 
-
+        
     }
 }
