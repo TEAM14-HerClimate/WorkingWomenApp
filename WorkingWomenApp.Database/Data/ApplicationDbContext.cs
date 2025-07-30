@@ -13,8 +13,10 @@ namespace WorkingWomenApp.Data
         {
         }
 
-        public ApplicationUser ApplicationUsers { get; set; }
-        public SecurityRole SecurityRoles { get; set; }
-        public Article Articles { get; set; }  
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<SecurityRole> SecurityRoles { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        //public Article Articles { get; set; }
     }
 }
