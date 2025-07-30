@@ -8,8 +8,8 @@ using WorkingWomenApp.Database.Core;
 namespace WorkingWomenApp.Database.Models.Climate
 {
 
-        public class Article:Entity
-        {
+        public class Article: Entity
+    {
                          
             public string Title { get; set; }                   // Article title
             public string Author { get; set; }                  // Author name

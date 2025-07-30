@@ -13,10 +13,10 @@ namespace WorkingWomenApp.Controllers
         public async Task<ActionResult> Details(Guid? id)
         {
 
-            var profile = await _unitOfWork.ArticleRepository.GetAsync(x => x.Id == id, includeProperties: ""); ;
+            //var profile = await _unitOfWork.ArticleRepository.GetAsync(x => x.Id == id, includeProperties: ""); ;
 
             // strongly typed view - by putting object into the view vs. ViewBag.ComicBook = comicBook;
-            return View(comicBook);  // will automatically look in the views folder
+            return View();  // will automatically look in the views folder
         }
 
         [HttpPut]
@@ -26,8 +26,8 @@ namespace WorkingWomenApp.Controllers
             if (article != null)
                 article.Id = (Guid)id;
 
-            await _unitOfWork.ArticleRepository.AddAsync(article);
-            await _unitOfWork.SaveChangesAsync();
+            //await _unitOfWork.ArticleRepository.AddAsync(article);
+            //await _unitOfWork.SaveChangesAsync();
             return Redirect("/Index");
         }
 
