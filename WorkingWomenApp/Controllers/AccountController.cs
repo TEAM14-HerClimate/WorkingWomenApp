@@ -81,54 +81,55 @@ namespace WorkingWomenApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(UserCreateDto registerVM)
         {
-            if (ModelState.IsValid)
-            {
-                ApplicationUser user = new()
-                {
-                    FirstName = registerVM.FirstName,
-                    LastName = registerVM.LastName,
-                    Email = registerVM.Email,
-                    PhoneNumber = registerVM.PhoneNumber,
-                    NormalizedEmail = registerVM.Email.ToUpper(),
-                    EmailConfirmed = true,
-                    UserName = registerVM.Email,
-                    //CreatedAt = DateTime.Now
-                };
-
-                var result = await _userManager.CreateAsync(user, registerVM.Password);
-
-                if (result.Succeeded)
-                {
-                    //if (registerVM.RoleId != Guid.Empty)
-                    //{
-                    //    await _userManager.AddToRoleAsync(user, registerVM.Role);
-                    //}
-                    //else
-                    //{
-                    //    await _userManager.AddToRoleAsync(user, SD.Role_Customer);
-                    //}
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    if (string.IsNullOrEmpty(registerVM.RedirectUrl))
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        return LocalRedirect(registerVM.RedirectUrl);
-                    }
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(registerVM);
+            //}
             //registerVM.Roles = _roleManager.Roles.Select(x => new SelectListItem
             //{
             //    Text = x.Name,
             //    Value = x.Name
             //});
+            ApplicationUser user = new()
+            {
+                FirstName = registerVM.FirstName,
+                LastName = registerVM.LastName,
+                Email = registerVM.Email,
+                PhoneNumber = registerVM.PhoneNumber,
+                NormalizedEmail = registerVM.Email.ToUpper(),
+                EmailConfirmed = true,
+                UserName = registerVM.Email,
+                Password = registerVM.Password
+            };
+
+            var result = await _userManager.CreateAsync(user, registerVM.Password);
+
+            if (result.Succeeded)
+            {
+                //if (registerVM.RoleId != Guid.Empty)
+                //{
+                //    await _userManager.AddToRoleAsync(user, registerVM.Role);
+                //}
+                //else
+                //{
+                //    await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+                //}
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                if (string.IsNullOrEmpty(registerVM.RedirectUrl))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return LocalRedirect(registerVM.RedirectUrl);
+                }
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
 
             return View(registerVM);
         }

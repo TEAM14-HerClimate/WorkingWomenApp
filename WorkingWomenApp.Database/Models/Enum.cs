@@ -11,6 +11,17 @@ namespace WorkingWomenApp.Database.Models
         Health,
         Climate,
         GeneralKnowledge
-        
+    }
+    public enum Profession
+    {
+        Health,
+        Climate,
+        GeneralKnowledge
+    }
+    public enum ChildcareCenter
+    {
+        School,
+        Climate,
+        GeneralKnowledge
     }
 }

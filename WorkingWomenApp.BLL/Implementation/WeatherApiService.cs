@@ -27,7 +27,7 @@ namespace WorkingWomenApp.BLL.Implementation
         }
 
         public async Task<(bool, string, entity)> GetWeatherInfo(double latitude, double longitude)
-        {
+            {
             string errorMessage = null;
             bool success = false;
           

@@ -17,5 +17,7 @@ namespace WorkingWomenApp.Database.DTOs.UserDtos
 
         public Guid? RoleId { get; set; }
         public string RedirectUrl { get; set; }
+        
+        
     }
 }
