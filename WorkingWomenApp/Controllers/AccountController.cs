@@ -110,7 +110,7 @@ namespace WorkingWomenApp.Controllers
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 if (string.IsNullOrEmpty(registerVM.RedirectUrl))
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {
