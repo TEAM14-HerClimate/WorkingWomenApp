@@ -27,9 +27,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-builder.Services.AddIdentity<ApplicationUser, SecurityRole>(
-        options => options.SignIn.RequireConfirmedAccount = true
-    )
+builder.Services.AddIdentity<ApplicationUser, SecurityRole>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.AllowedForNewUsers = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequiredLength = 4;
+    })
     .AddEntityFrameworkStores<ApplicationDbContext>().AddRoles<SecurityRole>()
     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
 
