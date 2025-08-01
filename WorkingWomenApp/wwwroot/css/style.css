@@ -914,7 +914,7 @@ sup {
 .btn-primary {
     background: #CB769E !important;
     color: !important #1E1E1E;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -960,6 +960,7 @@ sup {
 .form-group {
     margin-bottom: 2rem;
     position: relative;
+    font-size: 2rem;
 }
 
     .form-group label {
