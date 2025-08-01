@@ -24,6 +24,8 @@ namespace WorkingWomenApp.BLL.UnitOfWork
            
             IUserRepository UserRepository { get; }
         IRepository<Article> ArticleRepository { get; }
+        IRepository<UserProfile> ProfileRepository { get; }
+
 
         void SaveChanges();
             Task SaveChangesAsync();

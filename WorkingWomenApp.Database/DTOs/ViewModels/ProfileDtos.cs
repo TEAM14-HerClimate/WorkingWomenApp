@@ -7,7 +7,7 @@ using WorkingWomenApp.Database.Models;
 
 namespace WorkingWomenApp.Database.DTOs.ViewModels
 {
-    public class ProfileDtos
+    public class UserProfileDtos
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

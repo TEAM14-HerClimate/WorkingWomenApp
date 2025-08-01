@@ -22,6 +22,7 @@ namespace WorkingWomenApp.BLL.UnitOfWork
         private readonly ApplicationDbContext _context;
         //private readonly IRepository<ApplicationUser> _appUserRepository;
         private readonly IRepository<Article> _articleRepository;
+        private readonly IRepository<UserProfile> _profileRepository;
         private readonly IUserRepository _userRepository;
 
 
@@ -34,6 +35,7 @@ namespace WorkingWomenApp.BLL.UnitOfWork
       
         public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context);
         public IRepository<Article> ArticleRepository => _articleRepository ?? new Repository<Article>(_context);
+        public IRepository<UserProfile> ProfileRepository => _profileRepository ?? new Repository<UserProfile>(_context);
 
         public void Dispose()
         {

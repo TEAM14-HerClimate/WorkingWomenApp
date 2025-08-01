@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using WorkingWomenApp.Database.DTOs.ViewModels;
 using WorkingWomenApp.Database.Models.Climate;
+using WorkingWomenApp.Database.Models.Users;
 
 namespace WorkingWomenApp.Mappings
 {
@@ -17,6 +18,9 @@ namespace WorkingWomenApp.Mappings
 
 
             CreateMap<Article, ArticleDto>().ReverseMap();
+
+            CreateMap<UserProfileDtos, UserProfile>().ReverseMap();
+            CreateMap<UserProfile, UserProfileDtos>().ReverseMap();
         }
 
 

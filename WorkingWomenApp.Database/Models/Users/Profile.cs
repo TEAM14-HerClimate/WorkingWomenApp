@@ -8,7 +8,7 @@ using WorkingWomenApp.Database.Core;
 
 namespace WorkingWomenApp.Database.Models.Users
 {
-    public class Profile:Entity
+    public class UserProfile:Entity
     {
         [ForeignKey("User")]
         public Guid UserId { get; set; }
@@ -33,6 +33,6 @@ namespace WorkingWomenApp.Database.Models.Users
         public DateTime? ChildDob { get; set; }
         public bool IsMother { get; set; }
 
-        public virtual Profile Profile { get; set; }
+        public virtual UserProfile Profile { get; set; }
     }
 }
