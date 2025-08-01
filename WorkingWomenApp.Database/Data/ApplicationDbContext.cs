@@ -16,7 +16,7 @@ namespace WorkingWomenApp.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<SecurityRole> SecurityRoles { get; set; }
         public DbSet<Article> Articles { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
-        //public Article Articles { get; set; }
+        public DbSet<UserProfile> UserProfile { get; set; }
+        
     }
 }
