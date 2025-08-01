@@ -1,10 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.Models.Climate;
 
 namespace WorkingWomenApp.Controllers
 {
     public class ProfileController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public ProfileController(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
         public IActionResult Index()
         {
             return View();
@@ -13,7 +23,7 @@ namespace WorkingWomenApp.Controllers
         public async Task<ActionResult> Details(Guid? id)
         {
 
-            //var profile = await _unitOfWork.ArticleRepository.GetAsync(x => x.Id == id, includeProperties: ""); ;
+            var profile = await _unitOfWork.ArticleRepository.GetAsync(x => x.Id == id, includeProperties: ""); 
 
             // strongly typed view - by putting object into the view vs. ViewBag.ComicBook = comicBook;
             return View();  // will automatically look in the views folder
