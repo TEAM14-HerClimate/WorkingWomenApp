@@ -54,7 +54,7 @@ namespace WorkingWomenApp.Controllers
                     var user = await _userManager.FindByEmailAsync(loginVM.Email);
                     if (string.IsNullOrEmpty(loginVM.RedirectUrl))
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Dashboard", "Home");
                     }
                     else
                     {

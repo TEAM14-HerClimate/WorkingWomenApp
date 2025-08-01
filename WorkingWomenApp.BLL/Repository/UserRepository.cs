@@ -16,6 +16,9 @@ namespace WorkingWomenApp.BLL.Repository
             _context = context;
         }
 
-        
+        public DbSet<T> Set<T>() where T : class
+        {
+            return _context.Set<T>();
+        }
     }
 }
