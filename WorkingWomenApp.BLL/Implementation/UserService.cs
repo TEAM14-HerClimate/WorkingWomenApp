@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 
-using Microsoft.ApplicationInsights;
+
 using Microsoft.Extensions.Options;
 
 using WorkingWomenApp.Database.Core.CustomEntities;
