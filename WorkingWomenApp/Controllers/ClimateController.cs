@@ -27,7 +27,7 @@ namespace WorkingWomenApp.Controllers
         public async Task<ActionResult> Details(Guid? id)
         {
 
-            var article = await _unitOfWork.ArticleRepository.GetAsync(x => x.Id == id, includeProperties: ""); ;
+            var article = await _unitOfWork.ArticleRepository.GetAsync(x => x.Id == id, includeProperties: ""); 
             var articleDto = _mapper.Map<ArticleDto>(article);
 
             return View(articleDto);  // will automatically look in the views folder

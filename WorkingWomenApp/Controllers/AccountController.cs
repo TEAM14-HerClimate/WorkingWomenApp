@@ -81,15 +81,7 @@ namespace WorkingWomenApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(UserCreateDto registerVM)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(registerVM);
-            //}
-            //registerVM.Roles = _roleManager.Roles.Select(x => new SelectListItem
-            //{
-            //    Text = x.Name,
-            //    Value = x.Name
-            //});
+            
             ApplicationUser user = new()
             {
                 FirstName = registerVM.FirstName,
