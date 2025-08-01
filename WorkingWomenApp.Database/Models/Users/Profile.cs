@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkingWomenApp.Database.Core;
+using WorkingWomenApp.Database.enums;
 
 namespace WorkingWomenApp.Database.Models.Users
 {

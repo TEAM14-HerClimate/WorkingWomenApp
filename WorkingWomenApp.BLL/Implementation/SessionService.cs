@@ -56,13 +56,13 @@ namespace WorkingWomenApp.BLL.Implementation
             {
                 var userid = _user.Id;
                 
-                var userRoles = _repository.Set<UserRoleMapping>().Where(r => r.UserId == user.Id);
-                await _unitOfWork..GetAsync(x => x.Id == id, includeProperties: "");
+                var userRoles = _unitOfWork.UserRoleMappingRepository.Set<UserRoleMapping>().Where(r => r.UserId == user.Id);
+                //await _unitOfWork.RolePermissionRepository.GetAsync(x => x.Id, includeProperties: "User",);
 
 
                 SecurityRoleIds = userRoles.Select(r => r.SecurityRoleId).ToList();
                     var rolesPermission =
-                        _repository.Set<RolePermission>().Where(r => SecurityRoleIds.Contains(r.RoleId));
+                        _unitOfWork.RolePermissionRepository.Set<RolePermission>().Where(r => SecurityRoleIds.Contains(r.RoleId));
                         
 
                     Permissions = rolesPermission

@@ -25,6 +25,10 @@ namespace WorkingWomenApp.BLL.UnitOfWork
             IUserRepository UserRepository { get; }
         IRepository<Article> ArticleRepository { get; }
         IRepository<UserProfile> ProfileRepository { get; }
+        IRepository<RolePermission> RolePermissionRepository { get; }
+        IRepository<UserRoleMapping> UserRoleMappingRepository { get; }
+        IRepository<PermissionType> PermissionTypeRepository { get; }
+        
 
 
         void SaveChanges();

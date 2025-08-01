@@ -23,6 +23,9 @@ namespace WorkingWomenApp.BLL.UnitOfWork
         //private readonly IRepository<ApplicationUser> _appUserRepository;
         private readonly IRepository<Article> _articleRepository;
         private readonly IRepository<UserProfile> _profileRepository;
+        private readonly IRepository<UserRoleMapping> _userRoleMappingRepository;
+        private readonly IRepository<RolePermission> _rolePermissionRepository;
+        private readonly IRepository<PermissionType> _permissionTypeRepository;
         private readonly IUserRepository _userRepository;
 
 
@@ -36,6 +39,9 @@ namespace WorkingWomenApp.BLL.UnitOfWork
         public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context);
         public IRepository<Article> ArticleRepository => _articleRepository ?? new Repository<Article>(_context);
         public IRepository<UserProfile> ProfileRepository => _profileRepository ?? new Repository<UserProfile>(_context);
+        public IRepository<RolePermission> RolePermissionRepository => _rolePermissionRepository ?? new Repository<RolePermission>(_context);
+        public IRepository<UserRoleMapping> UserRoleMappingRepository => _userRoleMappingRepository ?? new Repository<UserRoleMapping>(_context);
+        public IRepository<PermissionType> PermissionTypeRepository => _permissionTypeRepository ?? new Repository<PermissionType>(_context);
 
         public void Dispose()
         {

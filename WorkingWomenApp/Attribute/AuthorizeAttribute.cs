@@ -76,7 +76,14 @@ namespace WorkingWomenApp.Attribute
             }
             catch (Exception e)
             {
-                context.Result = ControllerBaseHelper.GenerateContentResult(HttpStatusCode.Unauthorized, e.ExtractInnerExceptionMessage(), PromiseCRMResponseType.PlainText);
+                context.Result = new ContentResult
+                {
+                    StatusCode = (int)HttpStatusCode.Unauthorized,
+                    Content = e.InnerException?.Message ?? e.Message,
+                    ContentType = "text/plain"
+                };
+
+           
             }
         }
     }
