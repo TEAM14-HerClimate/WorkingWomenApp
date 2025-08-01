@@ -38,6 +38,11 @@ namespace WorkingWomenApp.BLL.Repository
         //{
         //    this.dbContext = dbContext;
         //}
+
+        public DbSet<T> Set<T>() where T : class
+        {
+            return _context.Set<T>();
+        }
         public async Task<T> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null,
             bool tracked = false)
         {

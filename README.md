@@ -16,14 +16,10 @@ Women in their reproductive age (15-49 years) working in the informal sector NEE
 
 ## 🛠 Technologies Used
 
-- **.NET 6/7/8** (depending on your version)
-- **ASP.NET Core MVC / Web API**
+- **.NET Core 8** (depending on your version)
+- **ASP.NET Core MVC**
 - **Entity Framework Core**
-- **SQL Server / SQLite**
-- **Swagger/OpenAPI** for API documentation
-- **AutoMapper**, **Serilog**, **FluentValidation** (if applicable)
-- **Front-end**: Razor Pages / React / Angular / Blazor (mention what applies)
-
+- **SQL Server**
 ---
 
 ## 🚀 How to Run the Application
@@ -31,39 +27,38 @@ Women in their reproductive age (15-49 years) working in the informal sector NEE
 ### Prerequisites
 
 - [.NET SDK](https://dotnet.microsoft.com/download)
-- [SQL Server / SQLite / PostgreSQL] installed and running
-- [Node.js and npm](https://nodejs.org/) (if using a front-end framework like React)
+- SQL Server installed and running
+
 
 ### Steps to Run
 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/MyDotNetApp.git
-   cd MyDotNetApp
-
-    ```
+   git clone https://github.com/TEAM14-HerClimate/WorkingWomenApp.git
+   cd WorkingWomenApp
 
 2. **Restore packages**
 
     ```
     dotnet restore
 
-
 3. **Update database**
 
     ```
     dotnet ef database update
-
-
+    
 4. **Run the application**
 
     ```
     dotnet run
-5. **Open your browser and go to:
+
+5. **Open your browser and go to:**
 
     ```
     https://localhost:5001
+
+---
 
 ## 📦 APIs / Datasets Used
 

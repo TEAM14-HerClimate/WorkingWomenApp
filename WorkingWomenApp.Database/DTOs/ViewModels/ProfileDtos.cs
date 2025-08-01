@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WorkingWomenApp.Database.Core;
 using WorkingWomenApp.Database.enums;
 
-namespace WorkingWomenApp.Database.Models.Users
+namespace WorkingWomenApp.Database.DTOs.ViewModels
 {
-    public class UserProfile:Entity
+    public class UserProfileDtos
     {
-        [ForeignKey("User")]
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public bool IsPregnant { get; set; }
         public bool IsMother { get; set; }
@@ -20,20 +18,5 @@ namespace WorkingWomenApp.Database.Models.Users
         public bool IsBreastfeeding { get; set; }
         public int NumberOfChidren { get; set; }
         public int PregnancyWeeks { get; set; }
-
-
-
-
-        public virtual ApplicationUser User { get; set; }
-    }
-
-    public class Children : Entity
-    {
-        [ForeignKey("Profile")]
-        public Guid ProfileId { get; set; }
-        public DateTime? ChildDob { get; set; }
-        public bool IsMother { get; set; }
-
-        public virtual UserProfile Profile { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using WorkingWomenApp.Database.Core;
 using Microsoft.EntityFrameworkCore.Query;
 using WorkingWomenApp.Database.Models.WeatherApi;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -20,6 +21,7 @@ namespace WorkingWomenApp.BLL.Repository
 {
     public interface IRepository<T> where T : Entity
     {
+        DbSet<T> Set<T>() where T : class;
         Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null);
 

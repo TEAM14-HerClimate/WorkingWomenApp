@@ -1,87 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model WorkingWomenApp.Database.Models.Climate.Article
+﻿@using WorkingWomenApp.Database.Models
+@using WorkingWomenApp.Database.enums
+@model WorkingWomenApp.Database.DTOs.ViewModels.ArticleDto
 @{
-    Layout = "_Layout";
+    Layout = "_LayoutDashboard";
 }
+<div class="row">
+    <div class="col-md-6 offset-md-3 mt-5">
+        <div class="form-card">
+            <div class="brand">
 
-<div class="col-md-4 offset-md-4 mt-3">
-    <div class="login-card">
-        <div class="brand">
-
-            <h1>Add Article Form</h1>
-            <p>To customise your experience, create an account</p>
-        </div>
-
-        <form id="articlForm">
-            <div class="form-group">
-                <label for="FullName">Full Name</label>
-                <input type="email"
-                       class="form-control"
-                       id="FullName"
-                       placeholder="monica aisha"
-                       autocomplete="fullName">
-                <div class="error" id="emailError"></div>
+                @* <h1>SignUp</h1> *@
+                <p>Add an article</p>
             </div>
-            <div class="form-group">
-                <label for="PhoneNumber">Phone Number</label>
-                <input type="email"
-                       class="form-control"
-                       id="PhoneNumber"
-                       placeholder="0772123456"
-                       autocomplete="PhoneNumber">
-                <div class="error" id="PhoneNumberError"></div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email"
-                       class="form-control"
-                       id="email"
-                       placeholder="name@company.com"
-                       autocomplete="email">
-                <div class="error" id="emailError"></div>
-            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <form id="signUpForm" method="post">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Suzan" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password"
-                       id="password"
-                       class="form-control"
-                       placeholder="Enter your password"
-                       autocomplete="current-password">
-                <div class="error" id="passwordError"></div>
-            </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.DropDownListFor(model => model.Category,
+                                 new SelectList(Enum.GetValues(typeof(ArticleCategory))),
+                                 "Select a category",
+                                 new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                    </div>
+           
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", rows = 20, cols = 50 } })
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
 
-            <div class="remember-forgot">
-                <div class="remember-me">
-                    <input type="checkbox" id="remember">
-                    <label for="remember">Remember me</label>
+                    </div>
+
                 </div>
-                <a href="#" class="forgot-password">Forgot password?</a>
-            </div>
 
 
-            <div class="d-grid gap-2  mx-auto">
-                <button type="submit" class=" btn login-btn" id="loginButton">
-                    Sign in
-                </button>
-            </div>
-
-
-
-        </form>
+                <div class="d-grid gap-2  mx-auto">
+                    <button type="submit" class=" btn btn-primary" id="SaveButton">
+                        Save
+                    </button>
+                </div>
 
 
 
-        <div class="signup-link">
-            <p>Don't have an account? <a href="#">Sign up</a></p>
+            </form>
+
+
+
+         
         </div>
     </div>
-</div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+</div>
