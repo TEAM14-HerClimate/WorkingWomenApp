@@ -10,6 +10,7 @@ using WorkingWomenApp.BLL.Repository;
 using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Data;
 using WorkingWomenApp.Database.Models.Users;
+using WorkingWomenApp.Database.SeedData;
 using WorkingWomenApp.Mappings;
 using WorkingWomenApp.Persistent;
 
@@ -24,6 +25,7 @@ ILoggerFactory loggerFactory = LoggerFactory.Create(logging =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
@@ -54,7 +56,8 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWeatherApiService, WeatherApiService>();
 builder.Services.AddScoped<IClimateService, ClimateService>();
-
+builder.Services.AddScoped<ISecurityService, SecurityService>();
+builder.Services.AddSingleton<DataIntialiser>();
 
 
 
@@ -89,20 +92,22 @@ app.UseResponseCaching();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.RunMigration()
+    .SeedData();
 app.UseRouting(); 
 
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-////app.MapRazorPages();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapRazorPages();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//        name: "default",
+//        pattern: "{controller=Home}/{action=Index}/{id?}");
+//});
 
 app.Run();
