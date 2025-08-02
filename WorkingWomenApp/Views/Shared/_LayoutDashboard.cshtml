@@ -70,7 +70,7 @@
         </div>
         <ul class="nav-menu mt-5">
 
-            <li class="nav-item active"><a href="/Home/Dashboard"><i class="fa-regular fa-house"></i><span class="menu-text">Dashboard</span></a></li>
+                <li class="nav-item active"><a asp-controller="Climate" asp-action="Index"><i class="fa-regular fa-house"></i><span class="menu-text">Dashboard</span></a></li>
             <li class="nav-item"><a asp-controller="Climate" asp-action="Index"><i class="fa-solid fa-notes-medical"></i><span class="menu-text">Health Info</span></a></li>
             <li class="nav-item "><a asp-controller="Climate" asp-action="Index"><i class="fa-solid fa-cloud-meatball"></i><span class="menu-text">Climate Info</span></a></li>
             <li class="nav-item"><a asp-controller="" asp-action=""><i class="fas fa-play "></i><span class="menu-text">Child care</span></a></li>
@@ -116,7 +116,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item"><a href="@Url.Action("Index", "Profile");"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a></li>
+                <li class="nav-item"><a href="@Url.Action("Index", "Profile")"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a></li>
         </ul>
   
     </nav>

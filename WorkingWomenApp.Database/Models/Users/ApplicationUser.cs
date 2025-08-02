@@ -18,5 +18,6 @@ namespace WorkingWomenApp.Database.Models.Users
         public DateTime? BirthDate { get; set; }
         public DateTime MemberSince { get; set; }
         public DateTime PasswordLastChange { get; set; }
+        public bool IsSuperUser { get; set; }
     }
 }
