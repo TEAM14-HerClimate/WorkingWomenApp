@@ -27,8 +27,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-builder.Services.AddIdentity<ApplicationUser, SecurityRole>(options =>
-    {
+builder.Services.AddIdentity<ApplicationUser, SecurityRole>(options =>{
         options.SignIn.RequireConfirmedAccount = false;
         options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
         options.Lockout.MaxFailedAccessAttempts = 5;
@@ -94,9 +93,16 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-//app.MapRazorPages();
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+////app.MapRazorPages();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.Run();

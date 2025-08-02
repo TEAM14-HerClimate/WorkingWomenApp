@@ -4,6 +4,7 @@ using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.DTOs.ViewModels;
 using WorkingWomenApp.Database.Models.Climate;
 using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WorkingWomenApp.Controllers
 {
@@ -16,6 +17,7 @@ namespace WorkingWomenApp.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var articles = await _unitOfWork.ArticleRepository.GetAllAsync();

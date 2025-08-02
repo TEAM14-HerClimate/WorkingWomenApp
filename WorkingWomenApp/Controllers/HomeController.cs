@@ -34,8 +34,10 @@ namespace WorkingWomenApp.Controllers
 
            latitude  = Math.Round(latitude, 4);
            longitude = Math.Round(longitude, 4);
+           var newlatitude = latitude != null ? latitude : 0.3407872;
+           var newlongitude = longitude != null ? longitude : 32.5943296;
 
-            var (success, errorMessage, weatherData) = await _weatherApiService.GetWeatherInfo(latitude, longitude);
+            var (success, errorMessage, weatherData) = await _weatherApiService.GetWeatherInfo(newlatitude, newlongitude);
             if (success)
             {
                 if (weatherData == null)
@@ -43,15 +45,15 @@ namespace WorkingWomenApp.Controllers
                     //Console.WriteLine("Company data was null");
                     return new JsonResult(new
                     {
-                        code = false,
-                        message = "Business not found"
+                        Properties = false,
+                        message = "No Weather for cast"
                     });
                 }
                 return new JsonResult(new
                 {
                     code = true,
-                    name = weatherData.entity_name,
-                    message = "Business Verified"
+                    Properties = weatherData.Next6Hours,
+                    //message = "Business Verified"                    //message = "Business Verified"
                 });
             }
 
