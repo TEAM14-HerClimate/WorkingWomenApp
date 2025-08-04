@@ -27,7 +27,7 @@ namespace WorkingWomenApp.Views.SecurityRole
 
         public static RoleContainerModel GetRoleDetails(IUnitOfWork unitOfWork, Guid Id)
         {
-            var dbRole = unitOfWork.UserRepository.Set<Database.Models.Users.SecurityRole>().Find(Id);
+            var dbRole = unitOfWork.UserRepository.Set<Database.Models.Users.SecurityRole>().Where(r=>r.Id==Id).FirstOrDefault();
             bool IsNew = false;
 
             if (dbRole == null)//Initialize New Record

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 using WorkingWomenApp.Attribute;
 using WorkingWomenApp.Database.Models.Users;
 
@@ -34,11 +35,26 @@ namespace WorkingWomenApp.Helpers
 
         public static IEnumerable<Type> GetAllControllers()
         {
-            var allControllers = from a in Assembly.GetExecutingAssembly().GetTypes().Where(r => r.FullName.StartsWith("PromiseCRM.Controllers")
-                    || (r.FullName.StartsWith("PromiseCRM") && r.FullName.Contains("Controllers")))
-                select a;
+            var allControllers = from a in Assembly.GetExecutingAssembly().GetTypes().Where(r => r.FullName.StartsWith("WorkingWomenApp.Controllers")
+                    || (r.FullName.StartsWith("WorkingWomenApp") && r.FullName.Contains("Controllers")))
+                                 select a;
 
             return allControllers;
         }
+        //public static IEnumerable<Type> GetAllControllers()
+        //{
+        //    var assembly = Assembly.GetExecutingAssembly();
+
+        //    var controllerTypes = assembly.GetTypes()
+        //        .Where(type =>
+        //            type.IsClass &&
+        //            !type.IsAbstract &&
+        //            type.IsPublic &&
+        //            (typeof(Controller).IsAssignableFrom(type) || typeof(ControllerBase).IsAssignableFrom(type)) &&
+        //            (type.Namespace != null && type.Namespace.StartsWith("WorkingWomenApp.Controllers"))
+        //        );
+
+        //    return controllerTypes;
+        //}
     }
 }

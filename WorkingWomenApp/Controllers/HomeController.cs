@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.Database.Models;
+using WorkingWomenApp.Database.Models.WeatherApi;
 
 namespace WorkingWomenApp.Controllers
 {
@@ -24,6 +26,9 @@ namespace WorkingWomenApp.Controllers
 
         public IActionResult Dashboard()
         {
+            
+            
+
             return View();
         }
 
@@ -52,7 +57,7 @@ namespace WorkingWomenApp.Controllers
                  return new JsonResult(new
                 {
                     code = true,
-                    Properties = weatherData.Properties.Timeseries,
+                    Properties = weatherData.Properties.Timeseries.Select(r=>r.Data),
                     //message = "Business Verified"                    //message = "Business Verified"
                 });
             }
@@ -65,6 +70,10 @@ namespace WorkingWomenApp.Controllers
             });
 
         }
+
+
+       
+
         public IActionResult Privacy()
         {
             return View();

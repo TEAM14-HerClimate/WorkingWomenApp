@@ -232,10 +232,10 @@ namespace WorkingWomenApp.BLL.Implementation
                
                     var existingPermissions = await _unitOfWork.PermissionTypeRepository.GetAllAsync();
 
-                    //Loop through discovered protected actions
+                //Loop through discovered protected actions
 
-                    await _unitOfWork.PermissionTypeRepository.DeleteRangeAsync(existingPermissions);
-                    await _unitOfWork.PermissionTypeRepository.UpdateRangeAsync(protectedActionAttributes);
+                await _unitOfWork.PermissionTypeRepository.DeleteRangeAsync(existingPermissions);
+                await _unitOfWork.PermissionTypeRepository.UpdateRangeAsync(protectedActionAttributes);
                     //foreach (var discoveredItem in protectedActionAttributes.ToList())
                     //{
                     //    var existingItem = existingPermissions.Where(r => r.Module == discoveredItem.Module && r.SubModule == discoveredItem.SubModule

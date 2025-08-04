@@ -52,7 +52,7 @@ namespace WorkingWomenApp.Attribute
             {
                 var userId = _sessionService.GetUserId();
                 var user = _sessionService.GetUser();
-                if (user != null  )
+                if (user != null && !user.IsSuperUser )
                 {
                     throw new Exception("You do not have permission to access this resource.");
                 }

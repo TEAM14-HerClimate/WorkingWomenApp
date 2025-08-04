@@ -6,6 +6,7 @@ using WorkingWomenApp.BLL.Repository;
 using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.DTOs.ViewModels;
 using WorkingWomenApp.Database.enums;
+using WorkingWomenApp.Database.Models.Users;
 using WorkingWomenApp.Helpers;
 using WorkingWomenApp.Views.SecurityRole;
 
@@ -23,9 +24,10 @@ namespace WorkingWomenApp.Controllers
         [ProtectAction(SecurityModule.Settings, SecuritySubModule.SecurityRoles, SecuritySystemAction.ViewItem)]
         public IActionResult Index()
         {
-            return View();
+            var roles = _unitOfWork.UserRepository.Set<SecurityRole>().ToList();
+            return View(roles);
         }
-        [HttpPost]
+      
         [ProtectAction(SecurityModule.Settings, SecuritySubModule.SecurityRoles, SecuritySystemAction.ViewItem)]
         public async Task<ActionResult>  EditRole(Guid id)
         {

@@ -1,5 +1,81 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using WorkingWomenApp.Database
+@using WorkingWomenApp.Database.enums
+@model WorkingWomenApp.Views.SecurityRole.RoleContainerModel
 @{
 }
+<div class="row">
+    <div class="col-md-6 offset-md-3 mt-5">
+        <div class="form-card">
+            <div class="brand">
+
+                @* <h1>SignUp</h1> *@
+                <p>Add an article</p>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <form id="signUpForm" method="post">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Suzan" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                    </div>
+                    @foreach (var module in Model.GetPermissions().Select(r => r.Module).Distinct().OrderBy(r => r.GetEnumName()).ToList())
+                    {
+                        <div class="panel col-sm-3" id="panel-area">
+                            <div class="panel-heading">
+                                <strong>@Html.CheckBox("check-all", new { @class = "check-all" }) @module.GetEnumName()</strong>
+                            </div>
+                            <div class="panel-body table-responsive">
+                                <ol>
+                                    @foreach (var submodule in Model.Permissions.Where(r => r.Module == module).Select(r => r.SubModule).Distinct()
+                                                  .OrderBy(r => r.GetEnumName()
+                                                      ).ToList())
+                                    {
+                                        <li>
+                                            <div>@submodule.GetEnumName()</div>
+                                            @foreach (var permission in Model.Permissions.Where(r => r.Module == module && r.SubModule == submodule)
+                                                          .OrderBy(r => r.SystemAction.GetEnumName()).ToList())
+                                            {
+                                                <div class="watched-collection" wc-name="Permissions">
+                                                    @Html.CheckBox("Enabled", permission.Enabled)
+                                                    @Html.Hidden("Module", permission.Module)
+                                                    @Html.Hidden("SubModule", permission.SubModule)
+                                                    @Html.Hidden("SystemAction", permission.SystemAction)
+                                                    @Html.Hidden("PermissionId", permission.PermissionId)
+                                                    @permission.SystemAction.GetEnumName()
+                                                </div>
+                                            }
+                                        </li>
+                                    }
+                                </ol>
+                            </div>
+                        </div>
+                    }
+      
+
+                </div>
+
+
+                <div class="d-grid gap-2  mx-auto">
+                    <button type="submit" class=" btn btn-primary" id="SaveButton">
+                        Save
+                    </button>
+                </div>
+
+
+
+            </form>
+
+
+
+
+        </div>
+    </div>
+
+</div>

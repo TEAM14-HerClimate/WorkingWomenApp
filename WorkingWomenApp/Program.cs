@@ -57,6 +57,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWeatherApiService, WeatherApiService>();
 builder.Services.AddScoped<IClimateService, ClimateService>();
 builder.Services.AddScoped<ISecurityService, SecurityService>();
+builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddSingleton<DataIntialiser>();
 
 
