@@ -97,7 +97,107 @@ body {
     border-top-right-radius: 25px;
     box-shadow: 0 -20px 0 0 #fff;
 }
+.side-menu #dropdown {
+    border: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
 
+side-nav #dropdown .caret {
+        float: right;
+        margin: 9px 5px 0;
+    }
+
+side-nav #dropdown .indicator {
+        float: right;
+    }
+
+side-nav #dropdown .panel-body {
+        padding: 0;
+        background-color: #f3f3f3;
+    }
+
+    side-nav #dropdown .panel-body .navbar-nav {
+            width: 100%;
+        }
+
+        side-nav #dropdown .panel-body .navbar-nav li {
+                padding-left: 15px;
+                border-bottom: 1px solid #e7e7e7;
+            }
+
+            side-nav #dropdown .panel-body .navbar-nav li:last-child {
+                    border-bottom: none;
+                }
+
+    side-nav #dropdown .panel-body .panel > a {
+            margin-left: -20px;
+            padding-left: 35px;
+        }
+
+    side-nav #dropdown .panel-body .panel-body {
+            margin-left: -15px;
+        }
+
+        side-nav #dropdown .panel-body .panel-body li {
+                padding-left: 30px;
+            }
+
+            side-nav #dropdown .panel-body .panel-body li:last-child {
+                    border-bottom: 1px solid #e7e7e7;
+                } #dropdown {
+    border: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+side-nav #dropdown .caret {
+        float: right;
+        margin: 9px 5px 0;
+    }
+
+side-nav #dropdown .indicator {
+        float: right;
+    }
+
+side-nav #dropdown .panel-body {
+        padding: 0;
+        background-color: #f3f3f3;
+    }
+
+    side-nav #dropdown .panel-body .navbar-nav {
+            width: 100%;
+        }
+
+        side-nav #dropdown .panel-body .navbar-nav li {
+                padding-left: 15px;
+                border-bottom: 1px solid #e7e7e7;
+            }
+
+            side-nav #dropdown .panel-body .navbar-nav li:last-child {
+                    border-bottom: none;
+                }
+
+    side-nav #dropdown .panel-body .panel > a {
+            margin-left: -20px;
+            padding-left: 35px;
+        }
+
+    side-nav #dropdown .panel-body .panel-body {
+            margin-left: -15px;
+        }
+
+        side-nav #dropdown .panel-body .panel-body li {
+                padding-left: 30px;
+            }
+
+            side-nav #dropdown .panel-body .panel-body li:last-child {
+                    border-bottom: 1px solid #e7e7e7;
+                }
 
 .portrait {
     background-color: white;

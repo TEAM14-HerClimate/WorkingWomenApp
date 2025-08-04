@@ -16,10 +16,12 @@ Women in their reproductive age (15-49 years) working in the informal sector NEE
 
 ## 🛠 Technologies Used
 
-- **.NET Core 8** (depending on your version)
+- **.NET Core 8** 
 - **ASP.NET Core MVC**
 - **Entity Framework Core**
+- **Microsoft Identity**
 - **SQL Server**
+- **AutoMapper**
 ---
 
 ## 🚀 How to Run the Application
@@ -63,7 +65,7 @@ Women in their reproductive age (15-49 years) working in the informal sector NEE
 ## 📦 APIs / Datasets Used
 
 
-Example:
+
 - [**Location Weather Forecast API**] (https://developer.openepi.io/data-catalog/resource/4a3e1e8f-a517-4c26-9ea8-47e4970c8d32) 
     For Weather forecast for a specified place
 

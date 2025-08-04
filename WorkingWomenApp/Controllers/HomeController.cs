@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.Database.Models;
+using WorkingWomenApp.Database.Models.WeatherApi;
 
 namespace WorkingWomenApp.Controllers
 {
@@ -24,18 +26,23 @@ namespace WorkingWomenApp.Controllers
 
         public IActionResult Dashboard()
         {
+            
+            
+
             return View();
         }
 
 
-        [ResponseCache(VaryByHeader = "User-Agent", Duration = 10800, Location = ResponseCacheLocation.Any)]
+        [ResponseCache(VaryByHeader = "User-Agent", Duration = 3600, Location = ResponseCacheLocation.Any)]
         public async Task<JsonResult> GetWeatherData(double latitude, double longitude)
         {
 
            latitude  = Math.Round(latitude, 4);
            longitude = Math.Round(longitude, 4);
+           var newlatitude = !(latitude != null) ? latitude : 0.3407872;
+           var newlongitude = !(longitude != null) ? longitude : 32.5943296;
 
-            var (success, errorMessage, weatherData) = await _weatherApiService.GetWeatherInfo(latitude, longitude);
+            var (success, errorMessage, weatherData) = await _weatherApiService.GetWeatherInfo(newlatitude, newlongitude);
             if (success)
             {
                 if (weatherData == null)
@@ -43,19 +50,17 @@ namespace WorkingWomenApp.Controllers
                     //Console.WriteLine("Company data was null");
                     return new JsonResult(new
                     {
-                        code = false,
-                        message = "Business not found"
+                        Properties = false,
+                        message = "No Weather for cast"
                     });
                 }
-                return new JsonResult(new
+                 return new JsonResult(new
                 {
                     code = true,
-                    name = weatherData.entity_name,
-                    message = "Business Verified"
+                    Properties = weatherData.Properties.Timeseries.Select(r=>r.Data),
+                    //message = "Business Verified"                    //message = "Business Verified"
                 });
             }
-
-
 
             return new JsonResult(new
             {
@@ -65,6 +70,10 @@ namespace WorkingWomenApp.Controllers
             });
 
         }
+
+
+       
+
         public IActionResult Privacy()
         {
             return View();

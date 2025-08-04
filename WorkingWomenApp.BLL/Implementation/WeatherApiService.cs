@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.Database.Models.WeatherApi;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace WorkingWomenApp.BLL.Implementation
 {
@@ -27,22 +29,20 @@ namespace WorkingWomenApp.BLL.Implementation
 
         }
 
-        public async Task<(bool, string, entity)> GetWeatherInfo(double latitude, double longitude)
+        public async Task<(bool, string, WeatherForecast)> GetWeatherInfo(double latitude, double longitude)
             {
             string errorMessage = null;
             bool success = false;
-          
-            entity resultingMessage = new entity();
+
+            WeatherForecast? resultingMessage = new WeatherForecast();
 
             try
             {
-
+               
                 var customUserAgent = "MyWeatherApp/1.0 (https://github.com/bonolives/Team14)";
                 var request = new HttpRequestMessage(HttpMethod.Get, $"weatherapi/locationforecast/2.0/compact?lat={latitude}&lon={longitude}");
 
-              
-                //request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                //request.Headers.Add("User-Agent", customUserAgent);
+                request.Headers.Add("User-Agent", customUserAgent);
                 var response = await client.SendAsync(request);
 
                 if (!response.IsSuccessStatusCode)
@@ -54,7 +54,11 @@ namespace WorkingWomenApp.BLL.Implementation
                 var xmlString = await response.Content.ReadAsStringAsync();
                 
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                resultingMessage = JsonConvert.DeserializeObject<entity>(apiResponse);
+                //resultingMessage = JsonSerializer.Deserialize<WeatherData>(apiResponse, new JsonSerializerOptions
+                //{
+                //    PropertyNameCaseInsensitive = true
+                //}); 
+                resultingMessage = JsonConvert.DeserializeObject<WeatherForecast>(apiResponse);
 
                 success = true;
 

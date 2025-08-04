@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkingWomenApp.Data;
 
@@ -11,9 +12,11 @@ using WorkingWomenApp.Data;
 namespace WorkingWomenApp.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250802235640_superuser")]
+    partial class superuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,6 +223,9 @@ namespace WorkingWomenApp.Database.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -521,7 +527,7 @@ namespace WorkingWomenApp.Database.Migrations
                         .IsRequired();
 
                     b.HasOne("WorkingWomenApp.Database.Models.Users.ApplicationUser", "User")
-                        .WithMany("UserRoleMappings")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -529,11 +535,6 @@ namespace WorkingWomenApp.Database.Migrations
                     b.Navigation("SecurityRole");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WorkingWomenApp.Database.Models.Users.ApplicationUser", b =>
-                {
-                    b.Navigation("UserRoleMappings");
                 });
 
             modelBuilder.Entity("WorkingWomenApp.Database.Models.Users.PermissionType", b =>

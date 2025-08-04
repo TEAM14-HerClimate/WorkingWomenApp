@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.DTOs.UserDtos;
+using WorkingWomenApp.Database.enums;
 using WorkingWomenApp.Database.Models.Users;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace WorkingWomenApp.Controllers
 {
@@ -11,15 +16,17 @@ namespace WorkingWomenApp.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<SecurityRole> _roleManager;
+        private readonly IUnitOfWork _unitOfWork;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             RoleManager<SecurityRole> roleManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, IUnitOfWork unitOfWork)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
@@ -45,27 +52,34 @@ namespace WorkingWomenApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager
-                    .PasswordSignInAsync(loginVM.Email, loginVM.Password, loginVM.RememberMe, lockoutOnFailure: false);
-
-
-                if (result.Succeeded)
+               
+                //var applicationUser = _unitOfWork.UserRepository.Set<ApplicationUser>().Where(r => r.Email == loginVM.Email)
+                //    .FirstOrDefault();
+                var user = await _userManager.FindByEmailAsync(loginVM.Email);
+                if (user != null)
                 {
-                    var user = await _userManager.FindByEmailAsync(loginVM.Email);
-                    if (string.IsNullOrEmpty(loginVM.RedirectUrl))
+                    var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, true);
+
+
+                    if (result.Succeeded)
                     {
-                        return RedirectToAction("Dashboard", "Home");
+                        
+                        if (string.IsNullOrEmpty(loginVM.RedirectUrl))
+                        {
+                            return RedirectToAction("Dashboard", "Home");
+                            //return Redirect($"Home/Dashboard");
+                        }
+                        else
+                        {
+                            return LocalRedirect(loginVM.RedirectUrl);
+                        }
+
+
                     }
                     else
                     {
-                        return LocalRedirect(loginVM.RedirectUrl);
+                        ModelState.AddModelError("", "Invalid login attempt.");
                     }
-
-                  
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid login attempt.");
                 }
             }
 
@@ -91,21 +105,15 @@ namespace WorkingWomenApp.Controllers
                 NormalizedEmail = registerVM.Email.ToUpper(),
                 EmailConfirmed = true,
                 UserName = registerVM.Email,
-                Password = registerVM.Password
+                PassWord = registerVM.Password
             };
 
             var result = await _userManager.CreateAsync(user, registerVM.Password);
 
             if (result.Succeeded)
             {
-                //if (registerVM.RoleId != Guid.Empty)
-                //{
-                //    await _userManager.AddToRoleAsync(user, registerVM.Role);
-                //}
-                //else
-                //{
-                //    await _userManager.AddToRoleAsync(user, SD.Role_Customer);
-                //}
+                _userManager.AddToRoleAsync(user, "Woman").Wait();
+             
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 if (string.IsNullOrEmpty(registerVM.RedirectUrl))

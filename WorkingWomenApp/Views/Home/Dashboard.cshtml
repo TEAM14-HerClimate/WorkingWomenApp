@@ -7,31 +7,31 @@
 
 <div class=" row">
     <div class="greeting">
-        <h2>Good Morning Champ!</h2>
+        <h2>Hullo Queen!</h2>
         <p>Time to seize the day 🌞</p>
     </div>
     <div class="card_bg col-md-12 ">
        
         <div class=" row">
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card_weather 1st_card">
                     <div class="card-content">
-                        <div class="location text-center">London</div>
-                        <h1 class="degree">20<sup>o</sup> </h1>
-                        <p class="weather-status">Thunder</p>
+                        <div class="location text-center">Your current</div>
+                        <h1 class="temperature" id="temperature">20<sup>o</sup> </h1>
+                        <p class="weather-status">Temperature</p>
                     </div>
                     <div class="card-image">
                         <img src="https://i.ibb.co/GtWcGNW/cloud.png" alt="cloud" border="0">
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card_weather 2nd_card">
                     <div class="card-content">
-                        <p class="location">Italy</p>
-                        <h1 class="degree">18<sup>o</sup> </h1>
-                        <p class="weather-status">Rain</p>
+                        <p class="">Humidity</p>
+                        <h1 class="humidity" id="humidity"><sup>o</sup> </h1>
+                        <p class="weather-status">Humidity</p>
 
                     </div>
                     <div class="card-image">
@@ -39,16 +39,29 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card_weather 3rd_card">
                     <div class="card-content">
-                        <p class="location">Singapore</p>
-                        <h1 class="degree">32<sup>o</sup> </h1>
+                        <p class="location">WindSpeed</p>
+                        <h1 class="windSpeed" id="windSpeed"><sup>o</sup> </h1>
                         <p class="weather-status">Wind</p>
 
                     </div>
                     <div class="card-image">
                         <img src="https://i.ibb.co/30tJCSC/wind.png" alt="wind" border="0">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card_weather 4rd_card">
+                    <div class="card-content">
+                        <p class="location">Pressure</p>
+                        <h1 class="windSpeed" id="pressure"><sup>o</sup> </h1>
+                        <p class="weather-status">Pressure</p>
+
+                    </div>
+                    <div class="card-image">
+                        <img src="/images/wind.png" alt="pressure" border="0">
                     </div>
                 </div>
             </div>
@@ -140,13 +153,24 @@
 			console.log(latitude,longitude);
 
 			$.get("@Url.Action("GetWeatherData", "Home")", {latitude: latitude, longitude: longitude }, function (response) {
-					console.log(response)
-					if (response.success) {
-						alert(response.message);
-						window.location.href = "/dashboard"; // Navigate to dashboard manually
-					} else {
-						alert("Error: " + response.message);
-					}
+
+                console.log(response.Properties)
+                        
+            if ( response.Properties && response.Properties.length > 0) {
+             
+                const data = response.Properties[0];
+                   console.log(data)
+                document.getElementById('temperature').textContent = `${data.air_temperature} °C`;
+                document.getElementById('humidity').textContent = `${data.relative_humidity} %`;
+                document.getElementById('windSpeed').textContent = `${data.wind_speed} m/s`;
+                document.getElementById('pressure').textContent = `${data.air_pressure_at_sea_level} hPa`;
+
+                window.location.href = "/dashboard"; 
+            } else {
+                alert("Weather data not found.");
+            }
+						
+					
 				}).fail(function (jqXHR, textStatus, errorThrown) {
 					alert("AJAX error: " + textStatus + " - " + errorThrown);
 				});
