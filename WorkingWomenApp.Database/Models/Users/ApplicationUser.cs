@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +15,16 @@ namespace WorkingWomenApp.Database.Models.Users
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public string Password { get; set; }
+        //public string Password { get; set; }
         public DateTime? BirthDate { get; set; }
         public DateTime MemberSince { get; set; }
         public DateTime PasswordLastChange { get; set; }
         public bool IsSuperUser { get; set; }
+
+        [NotMapped]
+        public string PassWord { get; set; }
+        [NotMapped]
+        public string ConfirmPassWord { get; set; }
+        public List<UserRoleMapping> UserRoleMappings { get; set; } = new List<UserRoleMapping>();
     }
 }

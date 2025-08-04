@@ -24,8 +24,9 @@ namespace WorkingWomenApp.Database.SeedData
                 user.Email = "monicaiyb+1@gmail.com";
                 user.EmailConfirmed = true;
                 user.IsSuperUser = true;
+                user.PassWord = "Cl1mateH3r?";
 
-                IdentityResult result = userManager.CreateAsync(user, "Cl1mateH3r?").Result;
+                IdentityResult result = userManager.CreateAsync(user, user.PassWord).Result;
 
                 if (result.Succeeded)
                 {
