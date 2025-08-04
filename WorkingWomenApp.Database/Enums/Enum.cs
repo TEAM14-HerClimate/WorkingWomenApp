@@ -27,9 +27,11 @@ namespace WorkingWomenApp.Database.enums
     }
 
     public enum SecurityModule
-    {
+    {Account=0,
         Settings = 1,
-        Deals = 2,
+        Climate = 2,
+        Health=3,
+        Profile=4
 
     }
     public enum SecuritySubModule
@@ -40,8 +42,13 @@ namespace WorkingWomenApp.Database.enums
         SystemUsers = 2,
         [Description("Security Roles")]
         SecurityRoles = 3,
-        [Description("Audit Logs")]
-        AuditLogs = 4,
+        [Description("Security Roles")]
+        UserProfile = 4, 
+        [Description("Security Roles")]
+        ClimateAdmin = 5, 
+        [Description("Security Roles")]
+        HealthAdmin = 6,
+
     }
     public enum SecuritySystemAction
     {

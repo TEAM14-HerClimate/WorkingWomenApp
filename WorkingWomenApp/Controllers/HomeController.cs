@@ -34,8 +34,8 @@ namespace WorkingWomenApp.Controllers
 
            latitude  = Math.Round(latitude, 4);
            longitude = Math.Round(longitude, 4);
-           var newlatitude = latitude != null ? latitude : 0.3407872;
-           var newlongitude = longitude != null ? longitude : 32.5943296;
+           var newlatitude = !(latitude != null) ? latitude : 0.3407872;
+           var newlongitude = !(longitude != null) ? longitude : 32.5943296;
 
             var (success, errorMessage, weatherData) = await _weatherApiService.GetWeatherInfo(newlatitude, newlongitude);
             if (success)

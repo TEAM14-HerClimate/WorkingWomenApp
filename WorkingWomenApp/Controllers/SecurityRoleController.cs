@@ -15,6 +15,7 @@ namespace WorkingWomenApp.Controllers
         {
             _securityService = securityService;
         }
+        [ProtectAction(SecurityModule.Settings, SecuritySubModule.SecurityRoles, SecuritySystemAction.ViewItem)]
         public IActionResult Index()
         {
             return View();

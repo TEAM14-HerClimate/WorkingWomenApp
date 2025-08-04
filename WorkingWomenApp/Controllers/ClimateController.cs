@@ -5,6 +5,8 @@ using WorkingWomenApp.Database.DTOs.ViewModels;
 using WorkingWomenApp.Database.Models.Climate;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
+using WorkingWomenApp.Attribute;
+using WorkingWomenApp.Database.enums;
 
 namespace WorkingWomenApp.Controllers
 {
@@ -26,6 +28,7 @@ namespace WorkingWomenApp.Controllers
         }
 
         // allow nullable
+        [ProtectAction(SecurityModule.Climate, SecuritySubModule.ClimateAdmin, SecuritySystemAction.ViewItem)]
         public async Task<ActionResult> Details(Guid? id)
         {
 
@@ -37,7 +40,8 @@ namespace WorkingWomenApp.Controllers
 
         [HttpPut]
         [HttpPost]
-       public async Task<ActionResult> Details(Guid? id , ArticleDto? articleDto = null)
+        [ProtectAction(SecurityModule.Climate, SecuritySubModule.ClimateAdmin, SecuritySystemAction.CreateAndEdit)]
+        public async Task<ActionResult> Details(Guid? id , ArticleDto? articleDto = null)
         {
             //if (articleDto==Guid.Empty(Empty))
             //{

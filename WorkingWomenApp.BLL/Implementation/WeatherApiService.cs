@@ -44,7 +44,7 @@ namespace WorkingWomenApp.BLL.Implementation
 
 
                 //request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                //request.Headers.Add("User-Agent", customUserAgent);
+                request.Headers.Add("User-Agent", customUserAgent);
                 var response = await client.SendAsync(request);
 
                 if (!response.IsSuccessStatusCode)
