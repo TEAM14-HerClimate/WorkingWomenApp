@@ -2,18 +2,23 @@
 using WorkingWomenApp.Attribute;
 using WorkingWomenApp.BLL.Implementation;
 using WorkingWomenApp.BLL.Interfaces;
+using WorkingWomenApp.BLL.Repository;
+using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.DTOs.ViewModels;
 using WorkingWomenApp.Database.enums;
 using WorkingWomenApp.Helpers;
+using WorkingWomenApp.Views.SecurityRole;
 
 namespace WorkingWomenApp.Controllers
 {
     public class SecurityRoleController : Controller
     {
         private readonly ISecurityService _securityService;
-        public SecurityRoleController(ISecurityService securityService)
+        private readonly IUnitOfWork _unitOfWork;
+        public SecurityRoleController(ISecurityService securityService, IUnitOfWork unitOfWork)
         {
             _securityService = securityService;
+            _unitOfWork = unitOfWork;
         }
         [ProtectAction(SecurityModule.Settings, SecuritySubModule.SecurityRoles, SecuritySystemAction.ViewItem)]
         public IActionResult Index()
@@ -22,11 +27,13 @@ namespace WorkingWomenApp.Controllers
         }
         [HttpPost]
         [ProtectAction(SecurityModule.Settings, SecuritySubModule.SecurityRoles, SecuritySystemAction.ViewItem)]
-        public async Task<ActionResult>  EditRolePermissionById(Guid id)
+        public async Task<ActionResult>  EditRole(Guid id)
         {
             var permissionTypes = PermissionHelper.GetPermissionTypes();
-            var response =  _securityService.EnqueuePermissions(permissionTypes);
-            return View(Index);
+             _securityService.EnqueuePermissions(permissionTypes);
+        
+            RoleContainerModel roleContainer = RoleContainerModel.GetRoleDetails(_unitOfWork, id);
+            return View(roleContainer);
         }
     }
 }
