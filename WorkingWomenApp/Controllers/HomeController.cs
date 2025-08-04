@@ -28,7 +28,7 @@ namespace WorkingWomenApp.Controllers
         }
 
 
-        [ResponseCache(VaryByHeader = "User-Agent", Duration = 10800, Location = ResponseCacheLocation.Any)]
+        [ResponseCache(VaryByHeader = "User-Agent", Duration = 3600, Location = ResponseCacheLocation.Any)]
         public async Task<JsonResult> GetWeatherData(double latitude, double longitude)
         {
 
@@ -49,10 +49,10 @@ namespace WorkingWomenApp.Controllers
                         message = "No Weather for cast"
                     });
                 }
-                return new JsonResult(new
+                 return new JsonResult(new
                 {
                     code = true,
-                    Properties = weatherData.Next6Hours,
+                    Properties = weatherData,
                     //message = "Business Verified"                    //message = "Business Verified"
                 });
             }

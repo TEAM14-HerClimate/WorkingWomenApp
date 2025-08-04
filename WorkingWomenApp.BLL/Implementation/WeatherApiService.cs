@@ -34,7 +34,7 @@ namespace WorkingWomenApp.BLL.Implementation
             string errorMessage = null;
             bool success = false;
 
-            WeatherData resultingMessage = new WeatherData();
+            WeatherData? resultingMessage = new WeatherData();
 
             try
             {
