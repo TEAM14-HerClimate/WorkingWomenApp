@@ -21,7 +21,7 @@ namespace WorkingWomenApp.Database.SeedData
                 user.UserName = Constants.Constants.SuperUserName;
                 user.FirstName = "Super";
                 user.LastName = "Admin";
-                user.Email = "miyabo@dcareug.com";
+                user.Email = "monicaiyb+1@gmail.com";
                 user.EmailConfirmed = true;
                 user.IsSuperUser = true;
 
