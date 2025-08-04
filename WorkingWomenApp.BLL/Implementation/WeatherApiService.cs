@@ -29,12 +29,12 @@ namespace WorkingWomenApp.BLL.Implementation
 
         }
 
-        public async Task<(bool, string, WeatherData)> GetWeatherInfo(double latitude, double longitude)
+        public async Task<(bool, string, WeatherForecast)> GetWeatherInfo(double latitude, double longitude)
             {
             string errorMessage = null;
             bool success = false;
 
-            WeatherData? resultingMessage = new WeatherData();
+            WeatherForecast? resultingMessage = new WeatherForecast();
 
             try
             {
@@ -56,10 +56,11 @@ namespace WorkingWomenApp.BLL.Implementation
                 var xmlString = await response.Content.ReadAsStringAsync();
                 
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                resultingMessage = JsonSerializer.Deserialize<WeatherData>(apiResponse, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                }); ;
+                //resultingMessage = JsonSerializer.Deserialize<WeatherData>(apiResponse, new JsonSerializerOptions
+                //{
+                //    PropertyNameCaseInsensitive = true
+                //}); 
+                resultingMessage = JsonConvert.DeserializeObject<WeatherForecast>(apiResponse);
 
                 success = true;
 

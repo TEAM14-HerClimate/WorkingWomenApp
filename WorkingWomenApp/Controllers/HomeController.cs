@@ -52,12 +52,10 @@ namespace WorkingWomenApp.Controllers
                  return new JsonResult(new
                 {
                     code = true,
-                    Properties = weatherData,
+                    Properties = weatherData.Properties.Timeseries,
                     //message = "Business Verified"                    //message = "Business Verified"
                 });
             }
-
-
 
             return new JsonResult(new
             {

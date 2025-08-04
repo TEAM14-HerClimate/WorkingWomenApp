@@ -10,7 +10,7 @@ namespace WorkingWomenApp.BLL.Interfaces
 {
     public interface IWeatherApiService
     {
-        Task<(bool, string, WeatherData)> GetWeatherInfo(double latitude, double longitude);
+        Task<(bool, string, WeatherForecast)> GetWeatherInfo(double latitude, double longitude);
     }
 
    

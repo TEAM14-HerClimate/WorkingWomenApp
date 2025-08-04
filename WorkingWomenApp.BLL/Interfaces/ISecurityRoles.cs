@@ -2,7 +2,7 @@
 
 namespace WorkingWomenApp.BLL.Interfaces
 {
-    public interface ISecurityRoles
+    public interface ISecurityRole
     {
         Guid Id { get; set; }
         string Name { get; set; }
