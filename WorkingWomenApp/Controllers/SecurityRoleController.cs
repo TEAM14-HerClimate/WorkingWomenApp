@@ -16,26 +16,42 @@ namespace WorkingWomenApp.Controllers
     {
         private readonly ISecurityService _securityService;
         private readonly IUnitOfWork _unitOfWork;
+
         public SecurityRoleController(ISecurityService securityService, IUnitOfWork unitOfWork)
         {
             _securityService = securityService;
             _unitOfWork = unitOfWork;
         }
+
         [ProtectAction(SecurityModule.Settings, SecuritySubModule.SecurityRoles, SecuritySystemAction.ViewItem)]
         public IActionResult Index()
         {
             var roles = _unitOfWork.UserRepository.Set<SecurityRole>().ToList();
             return View(roles);
         }
-      
+
         [ProtectAction(SecurityModule.Settings, SecuritySubModule.SecurityRoles, SecuritySystemAction.ViewItem)]
-        public async Task<ActionResult>  EditRole(Guid id)
+        public async Task<ActionResult> EditRole(Guid id)
         {
             var permissionTypes = PermissionHelper.GetPermissionTypes();
-             await _securityService.EnqueuePermissions(permissionTypes);
-        
+            await _securityService.EnqueuePermissions(permissionTypes);
+
             RoleContainerModel roleContainer = await RoleContainerModel.GetRoleDetails(_unitOfWork, id);
             return View(roleContainer);
+        }
+
+        public async Task<ActionResult> EditRole(RoleContainerModel model)
+        {
+            var success = await _securityService.SaveSecurityRoleAsync(model);
+            if (success.Item1)
+            {
+                return RedirectToPage("./Index");
+            }
+            else
+            {
+                success.Item2 = model.ErrorMessage;
+                return View(model);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Data;
+using WorkingWomenApp.Database;
 using WorkingWomenApp.Database.Constants;
 using WorkingWomenApp.Database.DTOs.UserDtos;
 using WorkingWomenApp.Database.enums;
@@ -43,50 +44,49 @@ namespace WorkingWomenApp.BLL.Implementation
             
         }
 
-       public async Task<(bool, string)> SaveSecurityRoleAsync(SecurityRoleDto model)
+       public async Task<(bool, string)> SaveSecurityRoleAsync(ISecurityRole model)
        {
            bool success = false;
            string error = null;
            try
            {
+               
+
                if (model.IsNewRecord)//create
                {
-                   var newRole = new SecurityRole()
-                   {
-                       Id = Guid.NewGuid(),
-                       Name = model.RoleName
-                   };
-                   var role = await _roleManager.CreateAsync(newRole);
-                   if (role.Succeeded)
-                   {
-                       await SaveRolePermissionAsync(model.PermissionIds, newRole.Id);
+                   var roleId = await _createRole(model.Name);
+                   await UpdateRolePermissionsAsync(model);
 
-                   }
-                   else
-                   {
-                       throw new Exception("Role Name Already Exist.");
-                   }
-               }
+                }
                else//update
                {
-                   var dbRole = await _unitOfWork.UserRepository.Set<SecurityRole>().FindAsync(model.Id);
+                 
+                   var dbRole= await _unitOfWork.UserRepository.Set<SecurityRole>().Where(r => r.Id == model.Id).FirstOrDefaultAsync();
 
-                   if (dbRole == null)
+                  
+
+                  if (dbRole.IsSuperRole())
                    {
-                       throw new Exception("Role cannot be Editted");
+                       throw new Exception("You CAN'T edit the Super Role!");
                    }
+
+                   var beforeXML = dbRole.GenerateLogXML("Before Update");
 
 
                    if (dbRole.Name == Constants.HerClimateAdministrator)
                    {
-                       throw new Exception("Role cannot be Editted");
+                       throw new Exception("You CAN'T edit the HerClimate Admin Role Name!");
                    }
-                   dbRole.Name = model.RoleName;
-                   await SaveRolePermissionAsync(model.PermissionIds, dbRole.Id);
+                
+                   dbRole.Name = model.Name;
+                   await _updateRole(dbRole);
+                   await UpdateRolePermissionsAsync(model);
 
-               }
+                }
 
-               success = true;
+              
+
+                success = true;
            }
            catch (Exception e)
            {
@@ -115,13 +115,8 @@ namespace WorkingWomenApp.BLL.Implementation
         public async Task<IEnumerable<SecurityRole>> FetchAllSecurityRolesAsync()
         {
             var roles = _unitOfWork.UserRepository.Set<SecurityRole>().Include(r => r.Permissions);
+            return roles;
             
-
-          
-                return roles;
-            
-         
-           
         }
 
         public async Task<IEnumerable<RolePermission>> FetchAllRolePermissions(Guid roleId)
@@ -168,16 +163,16 @@ namespace WorkingWomenApp.BLL.Implementation
 
 
        
-        public virtual async Task<Guid> _createRole(string roleName, Func<Guid, Task> successCallbackFtn)
+        public virtual async Task<Guid> _createRole(string roleName)
         {
             var role = new SecurityRole(roleName);
-            await _handleTaskAsync(_roleManager.CreateAsync(role), () => Task.Run(() => successCallbackFtn(role.Id)));
+            await _handleTaskAsync(_roleManager.CreateAsync(role));
             return role.Id;
         }
 
-        public virtual async Task _updateRole(SecurityRole dbRole, Func<Guid, Task> successCallbackFtn)
+        public virtual async Task _updateRole(SecurityRole dbRole)
         {
-            await _handleTaskAsync(_roleManager.UpdateAsync(dbRole), () => Task.Run(() => successCallbackFtn(dbRole.Id)));
+            await _handleTaskAsync(_roleManager.UpdateAsync(dbRole));
         }
         private async Task _handleTaskAsync(Task<IdentityResult> task, Func<Task> callbackFtn = null)
         {
@@ -193,6 +188,48 @@ namespace WorkingWomenApp.BLL.Implementation
             }
         }
 
+        private  async Task UpdateRolePermissionsAsync(ISecurityRole model)
+        {
+           
+                var PermissionList = model.GetPermissions();
+
+
+                var dbSet = await _unitOfWork.RolePermissionRepository.GetAllAsync();
+
+                
+                var newPermissions = PermissionList.Where(r => r.Enabled).ToList();
+                var previousPermissions = dbSet.Where(r => r.RoleId == model.Id).ToList();
+
+                //Save New Permissions
+
+                foreach (var permission in newPermissions)
+                {
+                    var dbPermission = previousPermissions.Where(r => r.PermissionId == permission.PermissionId).FirstOrDefault();
+
+                    if (dbPermission == null)//New Permission
+                    {
+                        var newRole = new RolePermission
+                        {
+                            RoleId = model.Id,
+                            PermissionId = permission.PermissionId
+                        };
+                        _unitOfWork.RolePermissionRepository.AddAsync(newRole);
+
+                    }
+                    else//Existing Permission
+                    {
+                        previousPermissions.Remove(dbPermission);
+                        
+                    }
+                }
+
+                // Delete Removed Role Permissions i.e. Remaining in List
+              
+                await _unitOfWork.RolePermissionRepository.DeleteRangeAsync(previousPermissions);
+
+                await _unitOfWork.SaveChangesAsync();
+
+        }
         public async Task<bool> DeleteRole(string id)
         {
             bool success = false;
