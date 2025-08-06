@@ -39,7 +39,8 @@ namespace WorkingWomenApp.Controllers
             RoleContainerModel roleContainer = await RoleContainerModel.GetRoleDetails(_unitOfWork, id);
             return View(roleContainer);
         }
-
+        [HttpPost]
+        [HttpPut]
         public async Task<ActionResult> EditRole(RoleContainerModel model)
         {
             var success = await _securityService.SaveSecurityRoleAsync(model);

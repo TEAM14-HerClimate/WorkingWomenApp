@@ -16,9 +16,10 @@
                 <p>Add an article</p>
             </div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <form id="signUpForm" method="post">
+            <form id="rolesForm" method="post">
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(m => m.IsNewRecord)
                 <div class="row">
                     <div class="form-group col-md-12">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -28,6 +29,7 @@
                     </div>
                     @foreach (var module in Model.GetPermissions().Select(r => r.Module).Distinct().OrderBy(r => r.GetEnumName()).ToList())
                     {
+                    
                         <div class="panel col-sm-3" id="panel-area">
                             <div class="panel-heading">
                                 <strong>@Html.CheckBox("check-all", new { @class = "check-all" }) @module.GetEnumName()</strong>
@@ -38,20 +40,39 @@
                                                   .OrderBy(r => r.GetEnumName()
                                                       ).ToList())
                                     {
+                                    
                                         <li>
                                             <div>@submodule.GetEnumName()</div>
+                                            @{
+                                                var permissionIndex = 0;
+                                            }
+
                                             @foreach (var permission in Model.Permissions.Where(r => r.Module == module && r.SubModule == submodule)
                                                           .OrderBy(r => r.SystemAction.GetEnumName()).ToList())
                                             {
-                                                <div class="watched-collection" wc-name="Permissions">
+
+                                               @*  <div class="watched-collection" wc-name="Permissions">
                                                     @Html.CheckBox("Enabled", permission.Enabled)
+
                                                     @Html.Hidden("Module", permission.Module)
                                                     @Html.Hidden("SubModule", permission.SubModule)
                                                     @Html.Hidden("SystemAction", permission.SystemAction)
                                                     @Html.Hidden("PermissionId", permission.PermissionId)
                                                     @permission.SystemAction.GetEnumName()
-                                                </div>
+
+                                                </div> *@
+                                               <div class="watched-collection" wc-name="Permissions">
+                                                   @Html.CheckBox($"Permissions[{permissionIndex}].Enabled", permission.Enabled)
+                                                   @Html.Hidden($"Permissions[{permissionIndex}].Module", permission.Module)
+                                                   @Html.Hidden($"Permissions[{permissionIndex}].SubModule", permission.SubModule)
+                                                   @Html.Hidden($"Permissions[{permissionIndex}].SystemAction", permission.SystemAction)
+                                                   @Html.Hidden($"Permissions[{permissionIndex}].PermissionId", permission.PermissionId)
+                                                   @permission.SystemAction.GetEnumName()
+                                               </div>
+                                                permissionIndex++;
                                             }
+
+                                          
                                         </li>
                                     }
                                 </ol>
@@ -64,7 +85,7 @@
 
 
                 <div class="d-grid gap-2  mx-auto">
-                    <button type="submit" class=" btn btn-primary" id="SaveButton">
+                    <button type="button" class=" btn btn-primary" id="SaveButton" onclick="CheckTheForm(this)">
                         Save
                     </button>
                 </div>
@@ -80,3 +101,87 @@
     </div>
 
 </div>
+
+                                    
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            // app.controls.ensureFormValidBeforeSubmission("Id");
+            $(controllerCheckboxSelector).on("click", controllerCheckboxAction);
+            $(childCheckboxSelector).on("click", childCheckboxAction);
+
+            $(".panel").each(function (i, d) {
+                $(d).find(childCheckboxSelector).eq(0).triggerHandler("click");
+            });
+        });
+        function CheckTheForm(caller) {
+                const form = $("#rolesForm").closest("form");
+
+        // collect simple fields
+        const roleId = form.find("input[name='Id']").val();
+        const roleName = form.find("input[name='Name']").val();
+                const permissions = [];
+
+        $(".watched-collection").each(function () {
+            const container = $(this);
+
+            const permission = {
+                PermissionId: container.find("input[name='PermissionId']").val(),
+                Module: container.find("input[name='Module']").val(),
+                SubModule: container.find("input[name='SubModule']").val(),
+                SystemAction: container.find("input[name='SystemAction']").val(),
+                Enabled: container.find("input[name='Enabled']").is(":checked")
+            };
+
+            permissions.push(permission);
+        });
+        console.log(permissions)
+        const data = {
+            Id: roleId,
+            Name: roleName,
+            Permissions: permissions
+        };
+              $.ajax({
+            url: '@Url.Action("EditRole", "SecurityRole")',
+            type: "POST",
+            data: form.serialize(),
+            success: function(response) {
+                // alert("Role updated successfully!");
+                // optionally reload or redirect
+                 window.location.href = "/dashboard";
+            },
+            error: function(xhr) {
+                alert("Failed to update role: " + xhr.responseText);
+            }
+        });
+         
+        }
+        var controllerCheckboxSelector = "input.check-all";
+        var childCheckboxSelector = "input[type='checkbox']:not(.check-all)";
+
+        function childCheckboxAction() {
+            var root = $(this).closest(".panel");
+            if (root.find(childCheckboxSelector + ":not(:checked)").length > 0) {
+                root.find(controllerCheckboxSelector).prop("checked", false);
+            }
+            else {
+                root.find(controllerCheckboxSelector).prop("checked", true);
+            }
+        }
+
+        function controllerCheckboxAction() {
+            var root = $(this).closest(".panel");
+            if (root.find(controllerCheckboxSelector + ":checked").length > 0) {
+                root.find(childCheckboxSelector + ":not(:checked)").each(function (i, d) {
+                    $(d).prop("checked", true);
+                });
+            }
+            else {
+                root.find(childCheckboxSelector + ":checked").each(function (i, d) {
+                    $(d).prop("checked", false);
+                });
+            }
+        }
+
+    </script>
+}

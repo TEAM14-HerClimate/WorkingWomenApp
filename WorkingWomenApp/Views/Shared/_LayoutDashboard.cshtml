@@ -130,6 +130,8 @@
 <script src="~/fontawesome/js/fontawesome.min.js" asp-append-version="true"></script>
 <script src="~/fontawesome/js/regular.min.js" asp-append-version="true"></script>
 <script src="~/fontawesome/js/solid.min.js" asp-append-version="true"></script>
+
+
 <script>
         $(function() {
                 $("li").click(function(e) {
@@ -139,10 +141,11 @@
                 });
             });
 </script>
-<script>
-        @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+
+       
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-</script>
+
 
 
 </body>

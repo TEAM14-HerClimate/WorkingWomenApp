@@ -59,7 +59,7 @@ namespace WorkingWomenApp.Attribute
                 {
                     throw new Exception("You do not have permission to access this resource.");
                 }
-            }
+             }
 
             _sessionService.SetProtectedAction(Module, SubModule, SystemAction);
         }

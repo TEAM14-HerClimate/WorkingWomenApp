@@ -55,7 +55,7 @@ namespace WorkingWomenApp.BLL.Implementation
                if (model.IsNewRecord)//create
                {
                    var roleId = await _createRole(model.Name);
-                   await UpdateRolePermissionsAsync(model);
+                   await UpdateRolePermissionsAsync(model, roleId);
 
                 }
                else//update
@@ -80,7 +80,7 @@ namespace WorkingWomenApp.BLL.Implementation
                 
                    dbRole.Name = model.Name;
                    await _updateRole(dbRole);
-                   await UpdateRolePermissionsAsync(model);
+                   await UpdateRolePermissionsAsync(model, dbRole.Id);
 
                 }
 
@@ -188,7 +188,7 @@ namespace WorkingWomenApp.BLL.Implementation
             }
         }
 
-        private  async Task UpdateRolePermissionsAsync(ISecurityRole model)
+        private  async Task UpdateRolePermissionsAsync(ISecurityRole model,Guid roleId)
         {
            
                 var PermissionList = model.GetPermissions();
@@ -198,7 +198,7 @@ namespace WorkingWomenApp.BLL.Implementation
 
                 
                 var newPermissions = PermissionList.Where(r => r.Enabled).ToList();
-                var previousPermissions = dbSet.Where(r => r.RoleId == model.Id).ToList();
+                var previousPermissions = dbSet.Where(r => r.RoleId == roleId).ToList();
 
                 //Save New Permissions
 
@@ -210,7 +210,7 @@ namespace WorkingWomenApp.BLL.Implementation
                     {
                         var newRole = new RolePermission
                         {
-                            RoleId = model.Id,
+                            RoleId = roleId,
                             PermissionId = permission.PermissionId
                         };
                         _unitOfWork.RolePermissionRepository.AddAsync(newRole);
