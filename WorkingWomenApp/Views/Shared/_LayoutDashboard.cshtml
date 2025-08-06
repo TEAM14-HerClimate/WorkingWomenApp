@@ -139,8 +139,11 @@
                 });
             });
 </script>
+<script>
+        @await RenderSectionAsync("Scripts", required: false)
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</script>
 
 
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 </body>
 </html>

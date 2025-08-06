@@ -1,4 +1,5 @@
-﻿using WorkingWomenApp.Attribute;
+﻿using Microsoft.EntityFrameworkCore;
+using WorkingWomenApp.Attribute;
 using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.enums;
@@ -25,9 +26,9 @@ namespace WorkingWomenApp.Views.SecurityRole
             return Permissions.Select(r => (ISecurityPermission)r).ToList();
         }
 
-        public static RoleContainerModel GetRoleDetails(IUnitOfWork unitOfWork, Guid Id)
+        public static async Task<RoleContainerModel> GetRoleDetails(IUnitOfWork unitOfWork, Guid Id)
         {
-            var dbRole = unitOfWork.UserRepository.Set<Database.Models.Users.SecurityRole>().Where(r=>r.Id==Id).FirstOrDefault();
+            var dbRole = await unitOfWork.UserRepository.Set<Database.Models.Users.SecurityRole>().Where(r=>r.Id==Id).FirstOrDefaultAsync();
             bool IsNew = false;
 
             if (dbRole == null)//Initialize New Record
@@ -45,13 +46,15 @@ namespace WorkingWomenApp.Views.SecurityRole
             };
 
             //Fetch existing role permissions
-            var dbRolePermissions = unitOfWork.RolePermissionRepository.Set<RolePermission>().Where(r => r.RoleId == Id).ToList();
+            var dbRolePermissions = await unitOfWork.RolePermissionRepository.Set<RolePermission>().Where(r => r.RoleId == Id).ToListAsync();
 
 
             //Map Global Permissions to Role Permissions
             var accessibleModules = ProtectActionAttribute.AccessibleModules;
+            var accessiblePermissions = await unitOfWork.UserRepository.Set<PermissionType>()
+                .Where(r => accessibleModules.Contains(r.Module)).ToListAsync();
 
-            foreach (var permission in unitOfWork.UserRepository.Set<PermissionType>().Where(r => accessibleModules.Contains(r.Module)).ToList())
+            foreach (var permission in accessiblePermissions)
             {
                 model.Permissions.Add(new RolePermissionViewModel
                 {

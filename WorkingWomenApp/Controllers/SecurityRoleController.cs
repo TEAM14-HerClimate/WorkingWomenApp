@@ -32,9 +32,9 @@ namespace WorkingWomenApp.Controllers
         public async Task<ActionResult>  EditRole(Guid id)
         {
             var permissionTypes = PermissionHelper.GetPermissionTypes();
-             _securityService.EnqueuePermissions(permissionTypes);
+             await _securityService.EnqueuePermissions(permissionTypes);
         
-            RoleContainerModel roleContainer = RoleContainerModel.GetRoleDetails(_unitOfWork, id);
+            RoleContainerModel roleContainer = await RoleContainerModel.GetRoleDetails(_unitOfWork, id);
             return View(roleContainer);
         }
     }
