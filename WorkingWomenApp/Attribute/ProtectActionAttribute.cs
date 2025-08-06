@@ -32,8 +32,11 @@ namespace WorkingWomenApp.Attribute
         public static readonly SecurityModule[] AccessibleModules = new[] {
                 
                 SecurityModule.Settings,
-                
-                
+                SecurityModule.Climate,
+                SecurityModule.Account,
+                SecurityModule.Health,
+                SecurityModule.Profile,
+
 
             };
 
