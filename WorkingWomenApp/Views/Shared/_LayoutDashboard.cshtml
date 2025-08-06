@@ -13,7 +13,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HerClimate</title>
- 
+
 </head>
 
 <head>
@@ -21,15 +21,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-       Working Women App
+        Working Women App
     </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-   
+
     <link rel="stylesheet" href="~/WorkingWomenApp.styles.css" asp-append-version="true" />
     <link rel="shortcut icon"
-          href="~/assets/images/favicon.png"
-          type="image/x-icon" />
- @*    <link rel="stylesheet" href="~/css/assets/css/swiper-bundle.min.css" />
+    href="~/assets/images/favicon.png"
+    type="image/x-icon" />
+    @*    <link rel="stylesheet" href="~/css/assets/css/swiper-bundle.min.css" />
     <link rel="stylesheet" href="~/css/assets/css/animate.css" />
     <link rel="stylesheet" href="~/css/src/input.css" />
     <link rel="stylesheet" href="~/css/src/css/tailwind.css" /> *@
@@ -44,59 +44,73 @@
 
 </head>
 <body>
-@if (SignInManager.IsSignedIn(User))
-{
-    <div id="header">
-        <div class="header uboxed">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div id="header">
+            <div class="header uboxed">
 
+                <div class="logo">
+
+                    <div >Her<span style="color:#49AA97;">Climate</span></div>
+
+                </div>
+                <ul class="menu">
+                    <li><img src="https://byjaris.com/code/icons/home-alt.svg" alt="Fimanbol"></li>
+                    <li><img src="https://byjaris.com/code/icons/menu-alt.svg" alt="Fimanbol"></li>
+
+
+                </ul>
+                <ul class="menu-list">
+                    <li><a href=""><i class="fa fa-bell fa-2xl" aria-hidden="true"></i><span class="notification-number">99</span></a></li>
+                    <li><a href=""><i class="fa fa-tachometer fa-2xl" aria-hidden="true"></i></a></li>
+                    <li><a href=""><i class="fa fa-volume-down fa-2xl" aria-hidden="true"></i></a></li>
+                </ul>
+        @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="profile">
+                        <img
+                            src="https://avatars.githubusercontent.com/u/83676505?v=4"
+                            alt="profile image"/>
+                        @User?.Identity?.Name
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+    <div class="all">
+        <!-- ====== Navbar Section Start -->
+
+        <nav class="side-nav">
             <div class="logo">
-
                 <div >Her<span style="color:#49AA97;">Climate</span></div>
-
             </div>
-            <ul class="menu">
-                <li><img src="https://byjaris.com/code/icons/home-alt.svg" alt="Fimanbol"></li>
-                <li><img src="https://byjaris.com/code/icons/menu-alt.svg" alt="Fimanbol"></li>
+            <ul class="nav-menu mt-5">
 
+                <li class="nav-item active"><a asp-controller="Climate" asp-action="Index"><i class="fa-regular fa-house"></i><span class="menu-text">Dashboard</span></a></li>
+                <li class="nav-item"><a asp-controller="Health" asp-action="Index"><i class="fa-solid fa-notes-medical"></i><span class="menu-text">Health Info</span></a></li>
+                <li class="nav-item "><a asp-controller="Climate" asp-action="Index"><i class="fa-solid fa-cloud-meatball"></i><span class="menu-text">Climate Info</span></a></li>
+                <li class="nav-item"><a asp-controller="" asp-action=""><i class="fas fa-play "></i><span class="menu-text">Child care</span></a></li>
 
-            </ul>
-            <ul class="menu-list">
-                <li><a href=""><i class="fa fa-bell fa-2xl" aria-hidden="true"></i><span class="notification-number">99</span></a></li>
-                <li><a href=""><i class="fa fa-tachometer fa-2xl" aria-hidden="true"></i></a></li>
-                <li><a href=""><i class="fa fa-volume-down fa-2xl" aria-hidden="true"></i></a></li>
-            </ul>
-            <div class="profile">
-                <img
-                    src="https://avatars.githubusercontent.com/u/83676505?v=4"
-                    alt="profile image"/>
-            </div>
-        </div>
-    </div>
-}
-<div class="all">
-    <!-- ====== Navbar Section Start -->
-
-    <nav class="side-nav">
-        <div class="logo">
-            <div >Her<span style="color:#49AA97;">Climate</span></div>
-        </div>
-        <ul class="nav-menu mt-5">
-
-            <li class="nav-item active"><a asp-controller="Climate" asp-action="Index"><i class="fa-regular fa-house"></i><span class="menu-text">Dashboard</span></a></li>
-            <li class="nav-item"><a asp-controller="Health" asp-action="Index"><i class="fa-solid fa-notes-medical"></i><span class="menu-text">Health Info</span></a></li>
-            <li class="nav-item "><a asp-controller="Climate" asp-action="Index"><i class="fa-solid fa-cloud-meatball"></i><span class="menu-text">Climate Info</span></a></li>
-            <li class="nav-item"><a asp-controller="" asp-action=""><i class="fas fa-play "></i><span class="menu-text">Child care</span></a></li>
-           
-            <li class="nav-item"
+                <li class="nav-item"
                 style=" display: @(sessionService.HasAccessToPermission(SecurityModule.Profile, SecuritySubModule.SystemUsers, SecuritySystemAction.ViewList) == true)">
-                <a href="@Url.Action("Index", "Profile")"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a>
-            </li>
-            <li class="nav-item"
+                    <a href="@Url.Action("Index", "Profile")"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a>
+                </li>
+                <li class="nav-item"
                 style=" display: @(sessionService.HasAccessToPermission(SecurityModule.Profile, SecuritySubModule.SystemUsers, SecuritySystemAction.ViewList) == true)">
-                <a href="@Url.Action("Index", "SecurityRole")"><i class="fas fa-user"></i><span class="menu-text">Security</span></a>
-            </li>
+                    <a href="@Url.Action("Index", "SecurityRole")"><i class="fas fa-cog"></i><span class="menu-text">Security</span></a>
+                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item"
+                    >
+                        <a href="@Url.Action("Logout", "Account")"><i class="fas fa-lock"></i><span class="menu-text">Logout</span></a>
+                    </li>
+                }
+            
+            
         
-            </ul>
+        </ul>
 
     </nav>
 
