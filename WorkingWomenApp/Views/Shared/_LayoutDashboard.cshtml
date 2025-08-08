@@ -91,7 +91,8 @@
                 <li class="nav-item"><a asp-controller="Health" asp-action="Index"><i class="fa-solid fa-notes-medical"></i><span class="menu-text">Health Info</span></a></li>
                 <li class="nav-item "><a asp-controller="Climate" asp-action="Index"><i class="fa-solid fa-cloud-meatball"></i><span class="menu-text">Climate Info</span></a></li>
                 <li class="nav-item"><a asp-controller="" asp-action=""><i class="fas fa-play "></i><span class="menu-text">Child care</span></a></li>
-
+                @if (User.Identity.IsAuthenticated)
+                {
                 <li class="nav-item"
                 style=" display: @(sessionService.HasAccessToPermission(SecurityModule.Profile, SecuritySubModule.SystemUsers, SecuritySystemAction.ViewList) == true)">
                     <a href="@Url.Action("Index", "Profile")"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a>
@@ -100,10 +101,8 @@
                 style=" display: @(sessionService.HasAccessToPermission(SecurityModule.Profile, SecuritySubModule.SystemUsers, SecuritySystemAction.ViewList) == true)">
                     <a href="@Url.Action("Index", "SecurityRole")"><i class="fas fa-cog"></i><span class="menu-text">Security</span></a>
                 </li>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item"
-                    >
+              
+                    <li class="nav-item">
                         <a href="@Url.Action("Logout", "Account")"><i class="fas fa-lock"></i><span class="menu-text">Logout</span></a>
                     </li>
                 }

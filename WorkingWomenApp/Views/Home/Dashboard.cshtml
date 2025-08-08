@@ -154,18 +154,18 @@
 
 			$.get("@Url.Action("GetWeatherData", "Home")", {latitude: latitude, longitude: longitude }, function (response) {
 
-                console.log(response.Properties)
+                console.log(response)
                         
-            if ( response.Properties && response.Properties.length > 0) {
+            if ( response.properties && response.properties.length > 0) {
              
-                const data = response.Properties[0];
+                const data = response.properties[0];
                    console.log(data)
                 document.getElementById('temperature').textContent = `${data.air_temperature} °C`;
                 document.getElementById('humidity').textContent = `${data.relative_humidity} %`;
                 document.getElementById('windSpeed').textContent = `${data.wind_speed} m/s`;
                 document.getElementById('pressure').textContent = `${data.air_pressure_at_sea_level} hPa`;
 
-                window.location.href = "/dashboard"; 
+                window.location.href = "/Home/dashboard"; 
             } else {
                 alert("Weather data not found.");
             }
