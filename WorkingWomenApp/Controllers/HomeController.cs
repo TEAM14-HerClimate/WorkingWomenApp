@@ -54,10 +54,12 @@ namespace WorkingWomenApp.Controllers
                         message = "No Weather for cast"
                     });
                 }
+
+                var data = weatherData.Properties.Timeseries.Select(r => r.Data.Instant.Details);
                  return new JsonResult(new
                 {
                     code = true,
-                    Properties = weatherData.Properties.Timeseries.Select(r=>r.Data),
+                    Properties = data,
                     //message = "Business Verified"                    //message = "Business Verified"
                 });
             }

@@ -52,7 +52,7 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 });
 
 //builder.Services.BuildingPersistentServices(configuration);
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWeatherApiService, WeatherApiService>();
 builder.Services.AddScoped<IClimateService, ClimateService>();

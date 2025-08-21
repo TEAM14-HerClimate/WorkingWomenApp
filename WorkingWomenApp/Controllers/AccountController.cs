@@ -7,7 +7,7 @@ using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.DTOs.UserDtos;
 using WorkingWomenApp.Database.enums;
 using WorkingWomenApp.Database.Models.Users;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+
 
 namespace WorkingWomenApp.Controllers
 {

@@ -89,6 +89,8 @@ namespace WorkingWomenApp.BLL.Implementation
      
         public Guid GetUserId()
         {
+            if (_user == null)
+                throw new InvalidOperationException("User is not initialized in SessionService.");
             return _user.Id;
         }
         public string GetUserName()
