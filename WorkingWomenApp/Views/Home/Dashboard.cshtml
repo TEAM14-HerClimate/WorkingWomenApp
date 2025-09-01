@@ -73,12 +73,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
 <section class="card-row mt-2">
     <div class="row">
         <div class="col-md-4">
@@ -159,13 +153,14 @@
             if ( response.properties && response.properties.length > 0) {
              
                 const data = response.properties;
-                   console.log(data)
+                   console.log(data);
+
                 document.getElementById('temperature').textContent = `${data.air_temperature} °C`;
                 document.getElementById('humidity').textContent = `${data.relative_humidity} %`;
                 document.getElementById('windSpeed').textContent = `${data.wind_speed} m/s`;
                 document.getElementById('pressure').textContent = `${data.air_pressure_at_sea_level} hPa`;
 
-                // window.location.href = "/Home/dashboard"; 
+                // window.location.href = "/Home/dashboard";   
             } else {
                 alert("Weather data not found.");
             }
