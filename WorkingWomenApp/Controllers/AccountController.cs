@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.BLL.UnitOfWork;
+using WorkingWomenApp.Database.Constants;
 using WorkingWomenApp.Database.DTOs.UserDtos;
 using WorkingWomenApp.Database.enums;
 using WorkingWomenApp.Database.Models.Users;
@@ -115,7 +116,7 @@ namespace WorkingWomenApp.Controllers
 
             if (result.Succeeded)
             {
-                _userManager.AddToRoleAsync(user, "Woman").Wait();
+                _userManager.AddToRoleAsync(user, Constants.NormalUserRoleName).Wait();
 
 
                 //await _signInManager.SignInAsync(user, isPersistent: false);

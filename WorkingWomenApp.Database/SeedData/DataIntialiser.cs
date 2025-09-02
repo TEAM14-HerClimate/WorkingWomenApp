@@ -66,6 +66,17 @@ namespace WorkingWomenApp.Database.SeedData
                     throw new Exception($"Default Role Creation Error(s): {string.Join(",", roleResult.Errors.Select(r => $"{r.Code}: {r.Description}"))}");
                 }
             }
+            if (!roleManager.RoleExistsAsync(Constants.Constants.NormalUserRoleName).Result)
+            {
+                SecurityRole role = new SecurityRole(Constants.Constants.NormalUserRoleName);
+                role.Id = Guid.NewGuid();
+                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+
+                if (!roleResult.Succeeded)
+                {
+                    throw new Exception($"Default Role Creation Error(s): {string.Join(",", roleResult.Errors.Select(r => $"{r.Code}: {r.Description}"))}");
+                }
+            }
         }
     }
 }
