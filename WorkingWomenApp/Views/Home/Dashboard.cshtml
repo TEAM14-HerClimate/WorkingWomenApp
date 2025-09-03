@@ -154,11 +154,15 @@
              
                 const data = response.properties;
                    console.log(data);
+                           data.forEach(item => {
+          console.log(item.wind_speed);
+             document.getElementById('temperature').textContent = `${item.air_temperature} °C`;
+                document.getElementById('humidity').textContent = `${item.relative_humidity} %`;
+                document.getElementById('windSpeed').textContent = `${item.wind_speed} m/s`;
+                document.getElementById('pressure').textContent = `${item.air_pressure_at_sea_level} hPa`;
+        });
 
-                document.getElementById('temperature').textContent = `${data.air_temperature} °C`;
-                document.getElementById('humidity').textContent = `${data.relative_humidity} %`;
-                document.getElementById('windSpeed').textContent = `${data.wind_speed} m/s`;
-                document.getElementById('pressure').textContent = `${data.air_pressure_at_sea_level} hPa`;
+             
 
                 // window.location.href = "/Home/dashboard";   
             } else {
