@@ -1,9 +1,25 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model IEnumerable<WorkingWomenApp.Database.Models.Users.ApplicationUser>
 @{
-    @model IEnumerable<WorkingWomenApp.Database.Models.Users.ApplicationUser>
+   
+    Layout = "_LayoutDashboard";
 }
+
+
+
+<ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a data-mdb-tab-init class="nav-link active" id="ex-with-icons-tab-1" asp-controller="SecurityUsers" asp-action="Index" role="tab"
+           aria-controls="ex-with-icons-tabs-1" aria-selected="true">Users</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a data-mdb-tab-init class="nav-link" id="ex-with-icons-tab-2" asp-controller="SecurityRole" asp-action="Index" role="tab"
+           aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-fw me-2"></i>Security Roles</a>
+    </li>
+
+</ul>
 
 <section class="intro">
     <div class="bg-image h-100" style="background-color: #f5f7fa;">
