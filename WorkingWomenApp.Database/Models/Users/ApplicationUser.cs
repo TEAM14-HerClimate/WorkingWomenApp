@@ -26,5 +26,10 @@ namespace WorkingWomenApp.Database.Models.Users
         [NotMapped]
         public string ConfirmPassWord { get; set; }
         public List<UserRoleMapping> UserRoleMappings { get; set; } = new List<UserRoleMapping>();
+
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}";
+
+        
     }
 }

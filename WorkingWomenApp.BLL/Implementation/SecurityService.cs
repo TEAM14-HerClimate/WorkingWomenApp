@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,19 +22,21 @@ namespace WorkingWomenApp.BLL.Implementation
         private readonly ApplicationDbContext _db;
         private readonly RoleManager<SecurityRole> _roleManager;
         private readonly IConfiguration _configuration;
-        
-       
+        private readonly IEmailService _emailSender;
+
+
 
 
         public SecurityService(IUnitOfWork unitOfWork,  RoleManager<SecurityRole> roleManager,
-            IConfiguration configuration, ApplicationDbContext db)
+            IConfiguration configuration, ApplicationDbContext db, IEmailService emailSender)
         {
             _unitOfWork = unitOfWork;
             _roleManager = roleManager;
             _configuration = configuration;
          
             _db= db;
-          
+            _emailSender = emailSender;
+
         }
         public async Task<SecurityRole> GetRoleById(Guid id)
         {
@@ -126,7 +129,7 @@ namespace WorkingWomenApp.BLL.Implementation
         }
 
 
-        public async Task SaveRolePermissionAsync(List<Guid> permissionIds, Guid roleId)
+          public async Task SaveRolePermissionAsync(List<Guid> permissionIds, Guid roleId)
         {
           
             

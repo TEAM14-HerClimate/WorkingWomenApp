@@ -1,13 +1,17 @@
-﻿@*
+﻿@using WorkingWomenApp.BLL.Implementation
+@using WorkingWomenApp.BLL.Interfaces
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@inject ISessionService  _sessionService;
 @{
     Layout = "_LayoutDashboard";
+    var user = _sessionService.GetUser().FirstName;
 }
 
 <div class=" row">
     <div class="greeting">
-        <h2>Hullo Queen!</h2>
+        <h2>Hullo @user!</h2>
         <p>Time to seize the day 🌞</p>
     </div>
     <div class="card_bg col-md-12 ">
@@ -17,7 +21,7 @@
             <div class="col-md-3">
                 <div class="card_weather 1st_card">
                     <div class="card-content">
-                        <div class="location text-center">Your current</div>
+                    @*     <div class="location text-center">Your current</div> *@
                         <h1 class="temperature" id="temperature">20<sup>o</sup> </h1>
                         <p class="weather-status">Temperature</p>
                     </div>
@@ -29,7 +33,7 @@
             <div class="col-md-3">
                 <div class="card_weather 2nd_card">
                     <div class="card-content">
-                        <p class="">Humidity</p>
+                       @*  <p class="">Humidity</p> *@
                         <h1 class="humidity" id="humidity"><sup>o</sup> </h1>
                         <p class="weather-status">Humidity</p>
 
@@ -42,7 +46,7 @@
             <div class="col-md-3">
                 <div class="card_weather 3rd_card">
                     <div class="card-content">
-                        <p class="location">WindSpeed</p>
+                      @*   <p class="location">WindSpeed</p> *@
                         <h1 class="windSpeed" id="windSpeed"><sup>o</sup> </h1>
                         <p class="weather-status">Wind</p>
 
@@ -55,7 +59,7 @@
             <div class="col-md-3">
                 <div class="card_weather 4rd_card">
                     <div class="card-content">
-                        <p class="location">Pressure</p>
+                     @*    <p class="location">Pressure</p> *@
                         <h1 class="windSpeed" id="pressure"><sup>o</sup> </h1>
                         <p class="weather-status">Pressure</p>
 
@@ -72,12 +76,6 @@
 
     </div>
 </div>
-
-
-
-
-
-
 
 <section class="card-row mt-2">
     <div class="row">
@@ -159,13 +157,18 @@
             if ( response.properties && response.properties.length > 0) {
              
                 const data = response.properties;
-                   console.log(data)
-                document.getElementById('temperature').textContent = `${data.air_temperature} °C`;
-                document.getElementById('humidity').textContent = `${data.relative_humidity} %`;
-                document.getElementById('windSpeed').textContent = `${data.wind_speed} m/s`;
-                document.getElementById('pressure').textContent = `${data.air_pressure_at_sea_level} hPa`;
+                   // console.log(data);
+                           data.forEach(item => {
+          // console.log(item.wind_speed);
+             document.getElementById('temperature').textContent = `${item.air_temperature} °C`;
+                document.getElementById('humidity').textContent = `${item.relative_humidity} %`;
+                document.getElementById('windSpeed').textContent = `${item.wind_speed} m/s`;
+                document.getElementById('pressure').textContent = `${item.air_pressure_at_sea_level} hPa`;
+        });
 
-                // window.location.href = "/Home/dashboard"; 
+             
+
+                // window.location.href = "/Home/dashboard";   
             } else {
                 alert("Weather data not found.");
             }

@@ -20,7 +20,8 @@
         /// </summary>
         public const string HerClimateAdministrator = "HerClimate Admin";
      
-        public const string SuperUserName = "admin";
+        public const string SuperUserName = "SuperAdmin";
         public const string SuperRoleName = "administrator";
+        public const string NormalUserRoleName = "NormalUser";
     }
 }

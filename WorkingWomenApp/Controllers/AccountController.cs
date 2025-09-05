@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.BLL.UnitOfWork;
+using WorkingWomenApp.Database.Constants;
 using WorkingWomenApp.Database.DTOs.UserDtos;
 using WorkingWomenApp.Database.enums;
 using WorkingWomenApp.Database.Models.Users;
@@ -17,20 +19,23 @@ namespace WorkingWomenApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<SecurityRole> _roleManager;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmailService _emailSender;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             RoleManager<SecurityRole> roleManager,
-            SignInManager<ApplicationUser> signInManager, IUnitOfWork unitOfWork)
+            SignInManager<ApplicationUser> signInManager, IUnitOfWork unitOfWork, IEmailService emailSender)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _unitOfWork = unitOfWork;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
         {
+
             return View();
         }
 
@@ -112,10 +117,11 @@ namespace WorkingWomenApp.Controllers
 
             if (result.Succeeded)
             {
-                _userManager.AddToRoleAsync(user, "Woman").Wait();
-             
+                _userManager.AddToRoleAsync(user, Constants.NormalUserRoleName).Wait();
 
-                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                //await _signInManager.SignInAsync(user, isPersistent: false);
+                await _emailSender.SendEmailAsync(user.Email, "Account Creation", $"Your account has been created successfully");
                 if (string.IsNullOrEmpty(registerVM.RedirectUrl))
                 {
                     return RedirectToAction("Login", "Account");
