@@ -20,7 +20,9 @@
     </li>
 
 </ul>
-
+<div class="col-md-12">
+    <a asp-controller="SecurityUsers" asp-action="Details" name="add" id="add" class="btn btn-primary btn-lg">Add Users</a>
+</div>
 <section class="intro">
     <div class="bg-image h-100" style="background-color: #f5f7fa;">
         <div class="mask d-flex align-items-center h-100">
@@ -37,7 +39,7 @@
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Phone Number</th>
                                                 <th scope="col">User Name</th>
-                                                <th scope="col">Add Role</th>
+                                                <th scope="col">Egit Role</th>
                                                 <th scope="col">Spots</th>
                                             </tr>
                                         </thead>
@@ -50,8 +52,8 @@
                                                 <td>@item.Email</td>
                                                 <td>@item.PhoneNumber</td>
                                                 <td>@item.UserName</td>
-                                                <td>@item.UserRoleMappings.Select(r=>r.SecurityRole.Name)</td>
-                                                <td><a href="">Edit Role Mappings</a></td>
+                                                    <td><a href="@Url.Action("Details", "SecurityUsers", new { id = @item.Id })">Edit User</a></td>
+                                                    <td><a href="@Url.Action("Details", "SecurityUsers")">Edit Role Mappings</a></td>
                                             </tr>
                                         }
 
