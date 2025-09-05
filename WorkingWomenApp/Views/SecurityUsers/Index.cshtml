@@ -48,7 +48,7 @@
                                 <td>@item.Email</td>
                                 <td>@item.PhoneNumber</td>
                                 <td>@item.UserName</td>
-                                <td><a href="@Url.Action("Details", "SecurityUsers", new { id = @item.Id })">Edit User</a></td>
+                                <td><a href="@Url.Action("UserRoleMapping", "SecurityUsers", new { id = @item.Id })">Edit User</a></td>
                                 <td><a href="@Url.Action("Details", "SecurityUsers")">Edit Role Mappings</a></td>
                             </tr>
                         }
