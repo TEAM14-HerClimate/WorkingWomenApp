@@ -1,0 +1,22 @@
+version: "3.4"
+services:
+  
+  mssql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server2022
+    ports:
+      - "1432:1433"
+
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=12345
+     
+    restart: always
+
+  ExampleProject:
+    image: ${DOCKER_REGISTRY-}Your-app-name
+    build:
+      context: .
+      dockerfile: app-directoty/Dockerfile
+    depends_on:
+    - "mssql"
