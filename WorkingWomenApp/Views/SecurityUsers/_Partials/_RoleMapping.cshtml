@@ -1,0 +1,18 @@
+﻿@inject IUnitOfWork _unitOfWork 
+@using WorkingWomenApp.BLL.UnitOfWork
+@using WorkingWomenApp.Database.Models.Users
+@model Guid?
+@{
+    var roles = _unitOfWork.UserRepository.Set<SecurityRole>().OrderBy(r => r.Name).ToList();
+}
+<tr class="watched-collection margin-bottom-10" collection-name="RoleNames">
+    <td></td>
+    <td>
+        @* @Html.DropDownListFor("Item1", new SelectList(Enum.GetValues(typeof(SecurityRole)), "id", "name", "-select-", new { @required = "required" }) *@
+      
+        @Html.DropDownList("Item1", new SelectList(roles, "Id", "Name"),
+            "Select role", new { })
+        @Html.ValidationMessage("Item1")
+    </td>
+    <td class="text-center"><a href="javascript:void(0)" class="remove-row"><i class="fa fa-trash text-danger"></i></a></td>
+</tr>

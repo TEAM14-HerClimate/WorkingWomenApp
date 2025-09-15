@@ -35,8 +35,8 @@
                             <th scope="col">Email</th>
                             <th scope="col">Phone Number</th>
                             <th scope="col">User Name</th>
-                            <th scope="col">Egit Role</th>
-                            <th scope="col">Spots</th>
+                            <th scope="col">Edit Role</th>
+                            <th scope="col">Role Mappings</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,8 +48,8 @@
                                 <td>@item.Email</td>
                                 <td>@item.PhoneNumber</td>
                                 <td>@item.UserName</td>
-                                <td><a href="@Url.Action("UserRoleMapping", "SecurityUsers", new { id = @item.Id })">Edit User</a></td>
-                                <td><a href="@Url.Action("Details", "SecurityUsers")">Edit Role Mappings</a></td>
+                                    <td><a href="@Url.Action("Details", "SecurityUsers", new { id = @item.Id })">Edit User</a></td>
+                                <td><a href="@Url.Action("UserRoleMapping", "SecurityUsers", new { id = @item.Id })">Edit Role Mappings </a></td>
                             </tr>
                         }
 

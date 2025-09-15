@@ -22,7 +22,15 @@ namespace WorkingWomenApp.Database.DTOs.UserDtos
     {
         public Guid RoleId { get; set; }
         public string RoleName { get; set; }
+        public List<UserMappingDto> Roles { get; set; } = new List<UserMappingDto>();
 
     }
 
+
+    public class UserMappingDto
+    {
+        public Guid Id { get; set; }
+        public Guid RoleId { get; set; }
+        public Guid UserId { get; set; }
+    }
 }
