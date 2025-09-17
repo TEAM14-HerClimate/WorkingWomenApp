@@ -23,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WorkingWomenApp.BLL\WorkingWomenApp.BLL.csproj" />
     <ProjectReference Include="..\WorkingWomenApp.Database\WorkingWomenApp.Database.csproj" />
-    <ProjectReference Include="..\WorkingWomenApp.Test\WorkingWomenApp.Test.csproj" />
   </ItemGroup>
 
 </Project>
