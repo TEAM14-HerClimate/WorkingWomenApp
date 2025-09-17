@@ -32,8 +32,11 @@ namespace WorkingWomenApp.Attribute
         public static readonly SecurityModule[] AccessibleModules = new[] {
                 
                 SecurityModule.Settings,
-                
-                
+                SecurityModule.Climate,
+                SecurityModule.Account,
+                SecurityModule.Health,
+                SecurityModule.Profile,
+
 
             };
 
@@ -46,19 +49,29 @@ namespace WorkingWomenApp.Attribute
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var _sessionService = (ISessionService)filterContext.HttpContext.RequestServices.GetService(typeof(ISessionService));
+            
 
-            if (!ModuleActivated() || !UserHasPermissionToAccessAction(_sessionService))
+            try
             {
-                var userId = _sessionService.GetUserId();
-                var user = _sessionService.GetUser();
-                if (user != null && !user.IsSuperUser )
-                {
-                    throw new Exception("You do not have permission to access this resource.");
-                }
-            }
+                var _sessionService = (ISessionService)filterContext.HttpContext.RequestServices.GetService(typeof(ISessionService));
 
-            _sessionService.SetProtectedAction(Module, SubModule, SystemAction);
+                if (!ModuleActivated() || !UserHasPermissionToAccessAction(_sessionService))
+                {
+                    var userId = _sessionService.GetUserId();
+                    var user = _sessionService.GetUser();
+                    if (user != null && !user.IsSuperUser)
+                    {
+                        throw new Exception("You do not have permission to access this resource.");
+                    }
+                }
+
+                _sessionService.SetProtectedAction(Module, SubModule, SystemAction);
+            }
+            catch (InvalidOperationException)
+            {
+                // Redirect to login
+                filterContext.Result = new RedirectResult("/Account/Login");
+            }
         }
 
         public IEnumerable<SecurityModule> GetAccessibleModules()

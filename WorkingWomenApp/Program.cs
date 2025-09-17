@@ -1,9 +1,11 @@
 using System.Reflection;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using RetreatCentreWebsite.Database.Models.config;
 using WorkingWomenApp.BLL.Implementation;
 using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.BLL.Repository;
@@ -52,7 +54,9 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 });
 
 //builder.Services.BuildingPersistentServices(configuration);
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<IEmailService, Emailservice>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWeatherApiService, WeatherApiService>();
 builder.Services.AddScoped<IClimateService, ClimateService>();
@@ -91,7 +95,17 @@ else
 
 app.UseResponseCaching();
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+
+var cacheMaxAgeOneWeek = (60 * 60 * 24 * 7).ToString();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        ctx.Context.Response.Headers.Append(
+            "Cache-Control", $"public, max-age={cacheMaxAgeOneWeek}");
+    }
+});
+
 
 app.RunMigration()
     .SeedData();

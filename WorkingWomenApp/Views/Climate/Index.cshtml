@@ -1,12 +1,14 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using WorkingWomenApp.Database.enums
+@model IEnumerable<WorkingWomenApp.Database.Models.Climate.Article>
 @{
     Layout = "_LayoutDashboard";
 }
 
 <div class="col-md-12">
-    <a asp-controller="Climate" asp-action="Details" name="add" id="add" class="btn btn-primary btn-lg">Add Article</a>
+    <a asp-controller="Climate" asp-action="Details" name="add" id="add" class="btn btn-primary btn-lg">Add Climate Article</a>
 </div>
 <section class="articles mt-2">
   
@@ -15,6 +17,17 @@
         <header>
             <h2 class="section__title">Recently Published</h2>
         </header>
+        
+        @foreach (var item in @Model.Where(r=>r.Category==ArticleCategory.Climate))
+        {
+            <article class="article flow">
+                <h3 class="article__title">@item.Title</h3>
+                <p class="article__description">
+                  @item.Summary
+                </p>
+                <a href="#" class="article__cta">Read more</a>
+            </article>
+        }
         <article class="article flow">
             <h3 class="article__title">Data Binding in React</h3>
             <p class="article__description">As developers, we don't like working with forms, but they're a critical part of most web applications! In this tutorial, you'll learn exactly how to wire up all of the different form controls in React. Never forget how to data-bind a checkbox or radio button again!</p>

@@ -5,7 +5,7 @@
     Layout = "_LayoutDashboard";
 }
 <div class="row">
-    <div class="col-md-6 offset-md-3 mt-5">
+    <div class="col-md-12  mt-5">
         <div class="form-card">
             <div class="brand">
 
@@ -35,13 +35,16 @@
                     <div class="form-group col-md-12">
                         @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", rows = 20, cols = 50 } })
+                        
+                   @*      <textarea id="inp_editor1">
+                     &lt;p&gt;Initial Document Content&lt;/p&gt;
+                </textarea> *@
+                        
                         @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-
                     </div>
 
                 </div>
-
-
+                
                 <div class="d-grid gap-2  mx-auto">
                     <button type="submit" class=" btn btn-primary" id="SaveButton">
                         Save
@@ -59,3 +62,11 @@
     </div>
 
 </div>
+
+                    @section Scripts
+                    {
+    <script>
+        var editor1 = 
+        new RichTextEditor("#Content", { skin: "rounded-corner", toolbar: "basic" });
+    </script>
+                    }

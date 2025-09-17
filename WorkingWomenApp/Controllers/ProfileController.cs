@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using WorkingWomenApp.Attribute;
 using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.DTOs.ViewModels;
+using WorkingWomenApp.Database.enums;
 using WorkingWomenApp.Database.Models.Climate;
 using WorkingWomenApp.Database.Models.Users;
 
@@ -17,12 +19,15 @@ namespace WorkingWomenApp.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        [ProtectAction(SecurityModule.Profile, SecuritySubModule.UserProfile, SecuritySystemAction.ViewItem)]
         public async Task<IActionResult> Index()
         {
             var articles = await _unitOfWork.ProfileRepository.GetAllAsync();
             return View();
         }
 
+        [ProtectAction(SecurityModule.Profile, SecuritySubModule.UserProfile, SecuritySystemAction.ViewItem)]
         public async Task<ActionResult> Details(Guid? id)
         {
 
@@ -34,6 +39,7 @@ namespace WorkingWomenApp.Controllers
 
         [HttpPut]
         [HttpPost]
+        [ProtectAction(SecurityModule.Profile, SecuritySubModule.UserProfile, SecuritySystemAction.CreateAndEdit)]
         public async Task<ActionResult> Details(Guid? id, UserProfileDtos? profileDtos = null)
         {
             var profile = _mapper.Map<UserProfile>(profileDtos);

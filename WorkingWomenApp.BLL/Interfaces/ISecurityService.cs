@@ -13,7 +13,7 @@ namespace WorkingWomenApp.BLL.Interfaces
     public interface ISecurityService
     {
         Task<SecurityRole> GetRoleById(Guid id);
-        Task<(bool, string)> SaveSecurityRoleAsync(SecurityRoleDto model );
+        Task<(bool, string)> SaveSecurityRoleAsync(ISecurityRole model );
 
         Task<IEnumerable<SecurityRole>> FetchAllSecurityRolesAsync();
         Task<SecurityRole> FetchOneSecurityRoleswithPermissionAsync(Guid id);

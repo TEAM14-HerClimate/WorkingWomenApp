@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+:root {
+    --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+    --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
+    --heading-color: #171717; /* Color for headings, subheadings and title throughout the website */
+    --accent-color: #dd3209; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+    --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+    --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
 
 * {
     margin: 0;
@@ -11,6 +19,7 @@
 
 body {
     background: #F1F9F4;
+    min-height:80vh;
 }
 
 ::selection {
@@ -82,26 +91,26 @@ nav {
     width: 100%;
     height: 100vh;
     background-size: cover;
-    background-position: center;
-    position: relative;
+/*    background-position: center;*/
+ /*   position: relative;*/
 }
 
     .img::before {
         content: '';
-        position: absolute;
+       /* position: absolute;*/
         height: 100%;
         width: 100%;
         background: rgba(0, 0, 0, 0.4);
     }
 
 .center {
-    position: absolute;
-    top: 52%;
+/*    position: absolute;*/
+    /*top: 52%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+    transform: translate(-50%, -50%);*/
+    /*width: 100%;
     padding: 0 20px;
-    text-align: center;
+    text-align: center;*/
 }
 
     .center .title {
@@ -308,3 +317,190 @@ nav {
 }
 
 
+/*--------------------------------------------------------------
+# Global Footer
+--------------------------------------------------------------*/
+.footer {
+    color: var(--default-color);
+    background: #E8B9AB;
+    font-size: 15px;
+    padding: 80px 0 0;
+    /* position: relative;*/
+    border-top: 1px solid;
+}
+
+    .footer .footer-brand h1,
+    .footer .footer-brand .logo {
+        margin: 0;
+        line-height: 1;
+        font-weight: 600;
+    }
+
+        .footer .footer-brand h1 .sitename,
+        .footer .footer-brand .logo .sitename {
+            font-family: var(--heading-font);
+            font-size: 26px;
+            letter-spacing: 0.8px;
+            color: var(--heading-color);
+        }
+
+    .footer .footer-brand .tagline {
+        color:var(--default-color);
+        font-size: 16px;
+        line-height: 1.7;
+        font-weight: 300;
+        margin: 12px 0 0;
+    }
+
+    .footer .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+        .footer .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background-color: transparent;
+            color: var(--default-color);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid  var(--default-color);
+        }
+
+            .footer .social-links a:hover {
+                background-color: var(--accent-color);
+                color: var(--contrast-color);
+                transform: translateY(-3px);
+                border-color: var(--accent-color);
+            }
+
+            .footer .social-links a i {
+                font-size: 16px;
+            }
+
+    .footer .footer-links-grid h5 {
+        color: var(--heading-color);
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        font-family: var(--heading-font);
+        letter-spacing: 0.5px;
+    }
+
+    .footer .footer-links-grid ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .footer .footer-links-grid ul li {
+            margin-bottom: 12px;
+        }
+
+            .footer .footer-links-grid ul li a {
+                color:var(--default-color);
+                text-decoration: none;
+                font-size: 15px;
+                font-weight: 300;
+                transition: all 0.3s ease;
+                /*position: relative;*/
+                padding-left: 10px;
+            }
+
+                .footer .footer-links-grid ul li a::before {
+                    content: "→";
+                    /*position: absolute;*/
+                    left: 0;
+                    opacity: 0;
+                    transition: all 0.3s ease;
+                    color: var(--accent-color);
+                }
+
+                .footer .footer-links-grid ul li a:hover {
+                    color: var(--accent-color);
+                    padding-left: 16px;
+                }
+
+                    .footer .footer-links-grid ul li a:hover::before {
+                        opacity: 1;
+                    }
+
+    .footer .footer-cta h5 {
+        color: var(--heading-color);
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 18px;
+        font-family: var(--heading-font);
+    }
+
+    .footer .footer-cta .btn-outline {
+        background: transparent;
+        color: var(--heading-color);
+        border: 1px solid var(--default-color);
+        padding: 10px 24px;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+
+        .footer .footer-cta .btn-outline:hover {
+            background: var(--accent-color);
+            color: var(--contrast-color);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+    .footer .footer-bottom {
+        margin-top: 60px;
+        padding: 25px 0;
+        border-top: 1px solid  var(--default-color);
+    }
+
+     /*   .footer .footer-bottom .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }*/
+
+@media (max-width: 768px) {
+    .footer .footer-bottom .footer-bottom-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+.footer .footer-bottom .footer-bottom-content p {
+    margin: 0;
+    color:var(--default-color);
+    font-size: 14px;
+    font-weight: 300;
+}
+
+    .footer .footer-bottom .footer-bottom-content p .sitename {
+        color: var(--heading-color);
+        font-weight: 500;
+    }
+
+.footer .footer-bottom .footer-bottom-content .credits {
+    font-size: 13px;
+    color:  var(--default-color);
+}
+
+    .footer .footer-bottom .footer-bottom-content .credits a {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 400;
+    }
+
+        .footer .footer-bottom .footer-bottom-content .credits a:hover {
+            text-decoration: underline;
+        }

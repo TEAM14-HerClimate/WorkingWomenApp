@@ -1,5 +1,68 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model IEnumerable<WorkingWomenApp.Database.Models.Users.ApplicationUser>
 @{
+   
+    Layout = "_LayoutDashboard";
 }
+
+
+
+<ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a data-mdb-tab-init class="nav-link active" id="ex-with-icons-tab-1" asp-controller="SecurityUsers" asp-action="Index" role="tab"
+           aria-controls="ex-with-icons-tabs-1" aria-selected="true">Users</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a data-mdb-tab-init class="nav-link" id="ex-with-icons-tab-2" asp-controller="SecurityRole" asp-action="Index" role="tab"
+           aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-fw me-2"></i>Security Roles</a>
+    </li>
+
+</ul>
+
+<section class="intro">
+    <div class="bg-image h-100" style="background-color: #f5f7fa;">
+        <div class="mask d-flex align-items-center h-100">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
+                                    <table class="table table-striped mb-0">
+                                        <thead style="background-color: #002d72;">
+                                            <tr>
+                                                <th scope="col">Full Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Phone Number</th>
+                                                <th scope="col">User Name</th>
+                                                <th scope="col">Add Role</th>
+                                                <th scope="col">Spots</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                        @foreach (var item in @Model)
+                                        {
+                                            <tr>
+                                                <td>@item.FullName</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.PhoneNumber</td>
+                                                <td>@item.UserName</td>
+                                                <td>@item.UserRoleMappings.Select(r=>r.SecurityRole.Name)</td>
+                                                <td><a href="">Edit Role Mappings</a></td>
+                                            </tr>
+                                        }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
