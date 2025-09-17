@@ -20,24 +20,27 @@
     </li>
 
 </ul>
+<div class="col-md-12 m-2">
+    <a asp-controller="SecurityUsers" asp-action="Details" name="add" id="add" class="btn btn-primary btn-lg">Add Users</a>
+</div>
 <section class="intro">
-    <div class="col-12">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-body p-0">
                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; min-height: 700px">
                     <table class="table table-striped mb-0">
-                        <thead>
+                        <thead >
                         <tr>
                             <th scope="col">Full Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Phone Number</th>
                             <th scope="col">User Name</th>
-                            <th scope="col">Add Role</th>
-                            <th scope="col">Spots</th>
+                            <th scope="col">Edit Role</th>
+                            <th scope="col">Role Mappings</th>
                         </tr>
                         </thead>
                         <tbody>
-
+                                        
                         @foreach (var item in @Model)
                         {
                             <tr>
@@ -45,8 +48,8 @@
                                 <td>@item.Email</td>
                                 <td>@item.PhoneNumber</td>
                                 <td>@item.UserName</td>
-                                <td>@item.UserRoleMappings.Select(r => r.SecurityRole.Name)</td>
-                                <td><a href="">Edit Role Mappings</a></td>
+                                    <td><a href="@Url.Action("Details", "SecurityUsers", new { id = @item.Id })">Edit User</a></td>
+                                <td><a href="@Url.Action("UserRoleMapping", "SecurityUsers", new { id = @item.Id })">Edit Role Mappings </a></td>
                             </tr>
                         }
 

@@ -10,7 +10,7 @@ namespace WorkingWomenApp.BLL.Interfaces
 {
     public interface IUserService
     {
-        //Task<ApplicationUser> Add(ApplicationUser user);
+        Task<(bool, string)> AddUser(ApplicationUser user);
 
     }
 }
