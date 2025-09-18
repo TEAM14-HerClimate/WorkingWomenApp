@@ -53,14 +53,15 @@ namespace WorkingWomenApp.Controllers
         }
         public async Task<ActionResult> UserRoleMapping(Guid? id)
         {
-            var user = _unitOfWork.UserRepository.Set<UserRoleMapping>().Include(r => r.SecurityRole).Where(r => r.UserId == id);
-            var userDto = _mapper.Map<UserMappingDto>(user);
+            var user = await _unitOfWork.UserRepository.Set<ApplicationUser>().Include(r => r.UserRoleMappings).Where(r => r.Id == id).FirstOrDefaultAsync();
+            var userRoleMappings = user.UserRoleMappings.ToList();
+            var userDto = _mapper.Map<UserRoleDto>(user);
 
-            return View();  // will automatically look in the views folder
+            return View(userDto);  // will automatically look in the views folder
         }
 
         [HttpPost]
-        public async Task<ActionResult> UserRoleMapping(UserMappingDto mapping)
+        public async Task<ActionResult> UserRoleMapping(UserRoleDto mapping)
         {
             //var user = _unitOfWork.UserRepository.Set<UserRoleMapping>().Include(r=>r.SecurityRole).Where(r => r.UserId == mapping.Id);
 

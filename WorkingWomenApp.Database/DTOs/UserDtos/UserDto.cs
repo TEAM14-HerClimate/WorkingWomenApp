@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorkingWomenApp.Database.Models.Users;
 
 
 namespace WorkingWomenApp.Database.DTOs.UserDtos
@@ -20,17 +21,20 @@ namespace WorkingWomenApp.Database.DTOs.UserDtos
 
     public class UserRoleDto
     {
-        public Guid RoleId { get; set; }
-        public string RoleName { get; set; }
-        public List<UserMappingDto> Roles { get; set; } = new List<UserMappingDto>();
-
+        public Guid Id { get; set; }
+        
+        public Guid UserId { get; set; }
+        public string Email { get; set; }
+        public string Username { get; set; }
+       
+        public List<RoleMappingDto> Roles { get; set; } = new List<RoleMappingDto>();
     }
 
 
-    public class UserMappingDto
+    public class RoleMappingDto
     {
-        public Guid Id { get; set; }
+
         public Guid RoleId { get; set; }
-        public Guid UserId { get; set; }
+        public string RoleName { get; set; }
     }
 }

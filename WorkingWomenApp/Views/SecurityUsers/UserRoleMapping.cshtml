@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IQueryable<WorkingWomenApp.Database.DTOs.UserDtos.UserMappingDto>;
+@model WorkingWomenApp.Database.DTOs.UserDtos.UserRoleDto;
 @{
     Layout = "_LayoutDashboard";
 }
@@ -14,12 +14,13 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
+                        <th>#</th>
                         <th>Role Name</th>
                         <th class="text-center">Options</th>
                     </tr>
                     </thead>
                     <tbody id="userRole">
-                    @foreach (var item in @Model)
+                    @foreach (var item in @Model.Roles)
                     {
                         <partial name="_Partials/_RoleMapping" model="item"/>
                     }
