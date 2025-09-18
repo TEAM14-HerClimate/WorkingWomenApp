@@ -7,7 +7,7 @@ using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.DTOs.UserDtos;
 using WorkingWomenApp.Database.DTOs.ViewModels;
 using WorkingWomenApp.Database.Models.Users;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+
 
 namespace WorkingWomenApp.Controllers
 {
@@ -51,12 +51,20 @@ namespace WorkingWomenApp.Controllers
                 return View(registerVM);
             }
         }
+        public async Task<ActionResult> UserRoleMapping(Guid? id)
+        {
+            var user = _unitOfWork.UserRepository.Set<UserRoleMapping>().Include(r => r.SecurityRole).Where(r => r.UserId == id);
+            var userDto = _mapper.Map<UserMappingDto>(user);
+
+            return View();  // will automatically look in the views folder
+        }
+
+        [HttpPost]
         public async Task<ActionResult> UserRoleMapping(UserMappingDto mapping)
         {
-            var user = _unitOfWork.UserRepository.Set<UserRoleMapping>().Include(r=>r.SecurityRole).Where(r => r.UserId == mapping.Id);
-            
+            //var user = _unitOfWork.UserRepository.Set<UserRoleMapping>().Include(r=>r.SecurityRole).Where(r => r.UserId == mapping.Id);
 
-            return View(user);  // will automatically look in the views folder
+            return View();  // will automatically look in the views folder
         }
     }
 }

@@ -25,6 +25,9 @@ namespace WorkingWomenApp.Mappings
                 opt => opt.MapFrom(src => src.Roles.Select(participant => new UserRoleDto() { RoleId = participant.RoleId }).ToList()));
             CreateMap<UserProfileDtos, UserProfile>().ReverseMap();
             CreateMap<UserProfile, UserProfileDtos>().ReverseMap();
+
+            CreateMap<UserMappingDto, UserRoleMapping>().ReverseMap();
+            CreateMap<UserRoleMapping, UserMappingDto>().ReverseMap();
         }
 
 
