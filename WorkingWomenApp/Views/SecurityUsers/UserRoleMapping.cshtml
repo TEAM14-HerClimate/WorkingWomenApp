@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IQueryable<WorkingWomenApp.Database.DTOs.UserDtos.UserRoleDto>;
+@model WorkingWomenApp.Database.DTOs.UserDtos.UserRoleDto;
 @{
     Layout = "_LayoutDashboard";
 }
@@ -10,32 +10,75 @@
     <div class="col-sm-12">
         <div class="alert alert-info userRolesDiv"><b>Map the user to Roles.</b></div>
         <div class="row userRolesDiv">
-            <div class="col-sm-6" id="">
-                <table class="table table-striped table-bordered">
+            <div class="col-sm-8" id="">
+                <table class="table table-striped table-bordered" id="rolesTable">
                     <thead>
                     <tr>
+                        <th>#</th>
                         <th>Role Name</th>
                         <th class="text-center">Options</th>
                     </tr>
                     </thead>
                     <tbody id="userRole">
-                    @foreach (var item in @Model)
+                    @if (@Model.Roles.Any())
                     {
-                        <partial name="_Partials/_RoleMapping" model="item"/>
+                        @foreach (var item in @Model.Roles)
+                        {
+                            <partial name="_Partials/_RoleMapping" model="item"/>
+                        }
                     }
+                    else
+                    {
+                        <partial name="_Partials/_RoleMapping" model="Model" />
+                    }
+                  
 
-                    
+
 
                     </tbody>
                     <tfoot>
                     <tr>
                         <td colspan="6" style="text-align:left;">
-                            <a class="tm-add-row" href="javascript:void(0)" onclick="addRole()"><i class="fa fa-plus"></i> Add Role</a>
+                                <a class="tm-add-row" href="javascript:void(0)" id="addRowBtn"><i class="fa fa-plus"></i> Add Role</a>
                         </td>
                     </tr>
                     </tfoot>
                 </table>
             </div>
         </div>
+        <div class="d-grid gap-2  mx-auto">
+            <button type="submit" class=" btn btn-primary" id="SaveButton">
+                Save
+            </button>
+        </div>
     </div>
 </div>
+
+                        
+@section Scripts
+{
+    <script>
+                       $(document).on("click", "#addRowBtn", function () {
+            var $template = $("#dropdownTemplate");
+            var $clone = $template.clone().removeAttr("id").removeClass("d-none");
+
+            // update index if needed
+            var rowCount = $("#rolesTable tbody tr").not("#dropdownTemplate").length + 1;
+            $clone.find("td:first").text(rowCount);
+
+            $("#rolesTable tbody").append($clone);
+        });
+
+
+                // remove row
+        $(document).on("click", ".remove-row", function () {
+            $(this).closest("tr").remove();
+
+            // reindex rows
+            $("#rolesTable tbody tr").not("#dropdownTemplate").each(function (i) {
+                $(this).find("td:first").text(i + 1);
+            });
+        });
+    </script>
+
+}

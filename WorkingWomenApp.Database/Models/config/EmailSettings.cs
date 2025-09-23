@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RetreatCentreWebsite.Database.Models.config
+﻿namespace WorkingWomenApp.Database.Models.config
 {
     public class EmailSettings
     {

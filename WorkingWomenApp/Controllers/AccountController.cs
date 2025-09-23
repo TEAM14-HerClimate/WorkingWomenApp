@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WorkingWomenApp.BLL.Interfaces;
 using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.Constants;
@@ -117,18 +118,32 @@ namespace WorkingWomenApp.Controllers
 
             if (result.Succeeded)
             {
-                _userManager.AddToRoleAsync(user, Constants.NormalUserRoleName).Wait();
+                var newUser = await _userManager.FindByEmailAsync(user.Email);
 
+                //await _userManager.AddToRoleAsync(newUser, Constants.NormalUserRoleName);
+
+                var defaultRole = await _roleManager.Roles.Where(r=>r.Name== Constants.NormalUserRoleName).FirstOrDefaultAsync();
+
+                
+                var mapUserToRole = new UserRoleMapping
+                {
+                    UserId = newUser.Id,
+                    SecurityRoleId= defaultRole.Id,
+                    CreatedOn=DateTime.Now,
+                };
+                await _unitOfWork.UserRoleMappingRepository.AddAsync(mapUserToRole);
+                await _unitOfWork.SaveChangesAsync();
 
                 //await _signInManager.SignInAsync(user, isPersistent: false);
                 await _emailSender.SendEmailAsync(user.Email, "Account Creation", $"Your account has been created successfully");
                 if (string.IsNullOrEmpty(registerVM.RedirectUrl))
                 {
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("Login", "Account"); 
                 }
                 else
                 {
                     return LocalRedirect(registerVM.RedirectUrl);
+
                 }
             }
 

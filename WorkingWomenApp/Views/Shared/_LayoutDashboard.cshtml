@@ -87,6 +87,7 @@
                 <li class="nav-item"><a asp-controller="Health" asp-action="Index"><i class="fa-solid fa-notes-medical"></i><span class="menu-text">Health Info</span></a></li>
                 <li class="nav-item "><a asp-controller="Climate" asp-action="Index"><i class="fa-solid fa-cloud-meatball"></i><span class="menu-text">Climate Info</span></a></li>
                 <li class="nav-item"><a asp-controller="" asp-action=""><i class="fas fa-play "></i><span class="menu-text">Child care</span></a></li>
+
                 @if (User.Identity.IsAuthenticated)
                 {
                 <li class="nav-item"

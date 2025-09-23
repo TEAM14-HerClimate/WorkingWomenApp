@@ -7,7 +7,7 @@ using WorkingWomenApp.BLL.UnitOfWork;
 using WorkingWomenApp.Database.DTOs.UserDtos;
 using WorkingWomenApp.Database.DTOs.ViewModels;
 using WorkingWomenApp.Database.Models.Users;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+
 
 namespace WorkingWomenApp.Controllers
 {
@@ -51,12 +51,21 @@ namespace WorkingWomenApp.Controllers
                 return View(registerVM);
             }
         }
-        public async Task<ActionResult> UserRoleMapping(UserMappingDto mapping)
+        public async Task<ActionResult> UserRoleMapping(Guid? id)
         {
-            var user = _unitOfWork.UserRepository.Set<UserRoleMapping>().Include(r=>r.SecurityRole).Where(r => r.UserId == mapping.Id);
-            
+            var user = await _unitOfWork.UserRepository.Set<ApplicationUser>().Include(r => r.UserRoleMappings).Where(r => r.Id == id).FirstOrDefaultAsync();
+            var userRoleMappings = user.UserRoleMappings.ToList();
+            var userDto = _mapper.Map<UserRoleDto>(user);
 
-            return View(user);  // will automatically look in the views folder
+            return View(userDto);  // will automatically look in the views folder
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UserRoleMapping(UserRoleDto mapping)
+        {
+            //var user = _unitOfWork.UserRepository.Set<UserRoleMapping>().Include(r=>r.SecurityRole).Where(r => r.UserId == mapping.Id);
+
+            return View();  // will automatically look in the views folder
         }
     }
 }

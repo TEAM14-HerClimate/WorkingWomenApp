@@ -16,15 +16,17 @@ namespace WorkingWomenApp.Database.SeedData
            
             if (userManager.FindByNameAsync(Constants.Constants.SuperUserName).Result == null)
             {
-                ApplicationUser user = new ApplicationUser();
-                user.Id = Guid.NewGuid();
-                user.UserName = Constants.Constants.SuperUserName;
-                user.FirstName = "Super";
-                user.LastName = "Admin";
-                user.Email = "monicaiyb+1@gmail.com";
-                user.EmailConfirmed = true;
-                user.IsSuperUser = true;
-                user.PassWord = "Cl1mateH3r?";
+                ApplicationUser user = new ApplicationUser
+                {
+                    Id = Guid.NewGuid(),
+                    UserName = Constants.Constants.SuperUserName,
+                    FirstName = "Super",
+                    LastName = "Admin",
+                    Email = "monicaiyb+1@gmail.com",
+                    EmailConfirmed = true,
+                    IsSuperUser = true,
+                    PassWord = "Cl1mateH3r?"
+                };
 
                 IdentityResult result = userManager.CreateAsync(user, user.PassWord).Result;
 

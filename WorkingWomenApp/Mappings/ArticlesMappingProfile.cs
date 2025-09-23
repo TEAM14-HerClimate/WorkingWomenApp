@@ -20,11 +20,16 @@ namespace WorkingWomenApp.Mappings
 
             CreateMap<Article, ArticleDto>().ReverseMap();
             CreateMap<UserCreateDto, ApplicationUser>().ReverseMap().ForMember(dest => dest.Roles,
-                opt => opt.MapFrom(src => src.UserRoleMappings.Select(participant => new UserRoleMapping() { Id = participant.SecurityRole.Id }).ToList())); ;
+                opt => opt.MapFrom(src => src.UserRoleMappings.Select(participant => new UserRoleMapping() { Id = participant.SecurityRole.Id }).ToList()));
             CreateMap< ApplicationUser, UserCreateDto>().ReverseMap().ForMember(dest => dest.UserRoleMappings, 
-                opt => opt.MapFrom(src => src.Roles.Select(participant => new UserRoleDto() { RoleId = participant.RoleId }).ToList()));
+                opt => opt.MapFrom(src => src.Roles.Select(participant => new UserRoleDto() { UserId = participant.UserId }).ToList()));
             CreateMap<UserProfileDtos, UserProfile>().ReverseMap();
             CreateMap<UserProfile, UserProfileDtos>().ReverseMap();
+
+            CreateMap<UserRoleDto, ApplicationUser>().ReverseMap().ForMember(dest => dest.Roles,
+                opt => opt.MapFrom(src => src.UserRoleMappings.Select(participant => new UserRoleMapping() { Id = participant.SecurityRole.Id }).ToList())); 
+            CreateMap<ApplicationUser, UserRoleDto>().ReverseMap().ForMember(dest => dest.UserRoleMappings,
+                opt => opt.MapFrom(src => src.Roles.Select(participant => new RoleMappingDto() { RoleId = participant.RoleId }).ToList()));
         }
 
 
