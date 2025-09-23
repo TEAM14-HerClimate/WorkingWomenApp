@@ -6,8 +6,8 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using RetreatCentreWebsite.Database.Models.config;
 using WorkingWomenApp.BLL.Interfaces;
+using WorkingWomenApp.Database.Models.config;
 
 namespace WorkingWomenApp.BLL.Implementation
 {
@@ -20,18 +20,18 @@ namespace WorkingWomenApp.BLL.Implementation
         _emailSettings = emailSettings.Value;
     }
 
-    public Task SendEmailAsync(string email, string subject, string message)
+    public async Task SendEmailAsync(string email, string subject, string message)
     {
-        Execute(email, subject, message, null).Wait();
+        await Execute(email, subject, message, null);
 
-        return Task.FromResult(0);
+        
     }
 
-    public Task SendEmailWithAttachmentsAsync(string email, string subject, string message, List<Attachment> attachments)
+    public async Task SendEmailWithAttachmentsAsync(string email, string subject, string message, List<Attachment> attachments)
     {
-        Execute(email, subject, message, attachments).Wait();
+        await Execute(email, subject, message, attachments);
 
-        return Task.FromResult(0);
+        
     }
 
     public async Task Execute(string email, string subject, string message, List<Attachment> attachments)

@@ -138,12 +138,12 @@ namespace WorkingWomenApp.Controllers
                 await _emailSender.SendEmailAsync(user.Email, "Account Creation", $"Your account has been created successfully");
                 if (string.IsNullOrEmpty(registerVM.RedirectUrl))
                 {
-                    return LocalRedirect(registerVM.RedirectUrl);
+                    return RedirectToAction("Login", "Account"); 
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Account");
-                    
+                    return LocalRedirect(registerVM.RedirectUrl);
+
                 }
             }
 

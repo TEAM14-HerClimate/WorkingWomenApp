@@ -4,7 +4,7 @@
 @using WorkingWomenApp.Database.Models.Users
 @model WorkingWomenApp.Database.DTOs.UserDtos.UserRoleDto
 
-<tr class="  margin-bottom-10" collection-name="RoleNames">
+<tr class="  margin-bottom-10" collection-name="RoleNames" id="dropdownTemplate">
     <td>#</td>
     <td>
         @* @Html.DropDownListFor("Item1", new SelectList(Enum.GetValues(typeof(SecurityRole)), "id", "name", "-select-", new { @required = "required" }) *@
