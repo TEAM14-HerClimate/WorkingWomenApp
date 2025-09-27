@@ -155,6 +155,11 @@ namespace WorkingWomenApp.Controllers
             return View(registerVM);
         }
 
+        public async Task<IActionResult> ForgotPassword()
+        {
+            return (view);
+        }
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
