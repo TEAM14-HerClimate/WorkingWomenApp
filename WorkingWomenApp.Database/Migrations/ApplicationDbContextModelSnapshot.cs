@@ -376,7 +376,7 @@ namespace WorkingWomenApp.Database.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("NumberOfChidren")
+                    b.Property<int>("NumberOfChildren")
                         .HasColumnType("int");
 
                     b.Property<int>("PregnancyWeeks")
@@ -387,6 +387,9 @@ namespace WorkingWomenApp.Database.Migrations
 
                     b.Property<string>("ProfessionDescription")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");

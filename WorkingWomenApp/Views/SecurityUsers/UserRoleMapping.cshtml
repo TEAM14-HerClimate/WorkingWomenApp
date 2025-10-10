@@ -63,8 +63,8 @@
             var $clone = $template.clone().removeAttr("id").removeClass("d-none");
 
             // update index if needed
-            var rowCount = $("#rolesTable tbody tr").not("#dropdownTemplate").length + 1;
-            $clone.find("td:first").text(rowCount);
+            // var rowCount = $("#rolesTable tbody tr").not("#dropdownTemplate").length + 1;
+            // $clone.find("td:first").text(rowCount);
 
             $("#rolesTable tbody").append($clone);
         });

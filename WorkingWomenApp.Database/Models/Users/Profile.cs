@@ -18,10 +18,10 @@ namespace WorkingWomenApp.Database.Models.Users
         public Profession Profession { get; set; }
         public string ProfessionDescription { get; set; }
         public bool IsBreastfeeding { get; set; }
-        public int NumberOfChidren { get; set; }
+        public int NumberOfChildren { get; set; }
         public int PregnancyWeeks { get; set; }
 
-
+        public byte[] ProfilePicture { get; set; }
 
 
         public virtual ApplicationUser User { get; set; }

@@ -1,15 +1,24 @@
 version: "3.4"
 services:
-  
-  mssql:
+  WorkingWomenApp:
+    build: .
+    container_name: workingwomen
+    ports:
+      - "80:80"
+    depends_on:
+      - WorkingWomenApp.Database
+      - WorkingWomenApp.BLL
+  WorkingWomenApp.Database:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     container_name: sql_server2022
     ports:
       - "1432:1433"
 
     environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=12345
+      SA_PASSWORD: "nopCommerce_db_password"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+
      
     restart: always
 
