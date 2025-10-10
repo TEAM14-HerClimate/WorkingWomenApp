@@ -93,7 +93,7 @@
                 {
                 <li class="nav-item"
                 style=" display: @(sessionService.HasAccessToPermission(SecurityModule.Profile, SecuritySubModule.SystemUsers, SecuritySystemAction.ViewList) == true)">
-                    <a href="@Url.Action("Index", "Profile")"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a>
+                    <a href="@Url.Action("UserProfile", "Profile")"><i class="fas fa-user"></i><span class="menu-text">Profile</span></a>
                 </li>
                 <li class="nav-item"
                 style=" display: @(sessionService.HasAccessToPermission(SecurityModule.Profile, SecuritySubModule.SystemUsers, SecuritySystemAction.ViewList) == true)">

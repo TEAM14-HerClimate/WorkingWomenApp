@@ -973,3 +973,49 @@ sup {
         font-size: 2rem;
         font-weight: 500;
     }
+
+
+
+/* User Profile section*/
+.user-profile article {
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 50px 0;
+    overflow: auto;
+}
+
+.user-profile article .profile-photo {
+    display: block;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin: 0 auto;
+    background-image: url("http://nickylew.com/wp-content/uploads/2017/05/nickylew-2017.jpg");
+    background-size: 230%;
+    background-position: 80% 0%;
+    background-repeat: no-repeat;
+}
+
+.user-profile article .profile-info {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.user-profile article .profile-info h1 {
+    font-size: 2em;
+    font-weight: 600;
+    margin-top: 0.5em;
+}
+
+    .user-profile article .people,
+    .user-profile article .posts {
+        display: inline-block;
+        width: 100%;
+        margin: 60px 0 0;
+        float: left;
+    }

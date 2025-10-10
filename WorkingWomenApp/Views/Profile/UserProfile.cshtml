@@ -30,19 +30,28 @@
                 </div>
             }
             <hr />
-            <div class="text-center">
-                @if (Model.ProfilePicture !=null)
+            <div class= "user-profile text-center">
+               @*  @if (Model.ProfilePicture !=null)
                 {
                     <img id="profilePic" src="~/Images/@Model.ProfilePicture" alt="avatar" class="avatar-image img-responsive center-block" style="width:90px;height:90px" />
                 }
                 else
                 {
                     <img id="profilePicDefault" src="~/Images/profilepic.png" alt="avatar" class="avatar-image img-responsive center-block" style="width:90px;height:90px" />
-                }
+                } *@
+                
+                <article>
+                    <div class="profile-photo"></div>
+                    <div class="profile-info">
+                        <h1>Nick Lewis</h1>
+                        <p>Creative technologist <a href="http://fiascodesign.co.uk/" target="_blank">FiascoDesign</a>. Maker of web things. Joint owner <a href="http://mountainandco.uk/" target="_blank">mountainandco</a>.</p>
+                    </div>
+                  
+                </article>
 
             </div>
 
-            <div class="col-md-10 center-block" style="float:none">
+            @* <div class="col-md-10 center-block" style="float:none">
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.IsBreastfeeding, new { @class = "col-md-4 control-label" })
@@ -63,7 +72,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> *@
         </div>
     </div>
 
