@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WorkingWomenApp.Database.enums;
 
-namespace WorkingWomenApp.Database.DTOs.ViewModels
+namespace WorkingWomenApp.Database.DTOs.ProfileDtos
 {
     public class UserProfileDtos
     {

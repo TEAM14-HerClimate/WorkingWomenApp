@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Diagnostics;
+using WorkingWomenApp.Database.DTOs.ProfileDtos;
 using WorkingWomenApp.Database.DTOs.UserDtos;
 using WorkingWomenApp.Database.DTOs.ViewModels;
 using WorkingWomenApp.Database.Models.Climate;

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WorkingWomenApp.Attribute;
 using WorkingWomenApp.BLL.UnitOfWork;
-using WorkingWomenApp.Database.DTOs.ViewModels;
+using WorkingWomenApp.Database.DTOs.ProfileDtos;
 using WorkingWomenApp.Database.enums;
 using WorkingWomenApp.Database.Models.Climate;
 using WorkingWomenApp.Database.Models.Users;
