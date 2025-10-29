@@ -21,7 +21,7 @@
 </style>
 <div class="centerBlock w3-centered w3-white" style="padding: 70px 16px">
     <div class="row">
-        <div class="col-md-7 center-block form-horizontal" style="float:none">
+        <div class="col-md-12 center-block form-horizontal" style="float:none">
             <h3 class="text-center"><b>MY PROFILE</b></h3>
             @if (TempData["ProfileUpdateSuccess"] != null)
             {
@@ -31,7 +31,18 @@
             }
             <hr />
             <div class= "user-profile text-center">
-               @*  @if (Model.ProfilePicture !=null)
+             
+               
+                @if (Model==null)
+                {
+                    <div>
+                        <a class="btn btn-primary" asp-controller="Profile" asp-action="Details" name="addProfile" id="addProfile">Add Profile</a>
+                    </div>
+                }
+                else
+                {
+                    <article>
+                        @*  @if (Model.ProfilePicture !=null)
                 {
                     <img id="profilePic" src="~/Images/@Model.ProfilePicture" alt="avatar" class="avatar-image img-responsive center-block" style="width:90px;height:90px" />
                 }
@@ -39,15 +50,15 @@
                 {
                     <img id="profilePicDefault" src="~/Images/profilepic.png" alt="avatar" class="avatar-image img-responsive center-block" style="width:90px;height:90px" />
                 } *@
-                
-                <article>
-                    <div class="profile-photo"></div>
-                    <div class="profile-info">
-                        <h1>Nick Lewis</h1>
-                        <p>Creative technologist <a href="http://fiascodesign.co.uk/" target="_blank">FiascoDesign</a>. Maker of web things. Joint owner <a href="http://mountainandco.uk/" target="_blank">mountainandco</a>.</p>
-                    </div>
-                  
-                </article>
+                        <div class="profile-photo"></div>
+                        <div class="profile-info">
+                            <h1>Nick Lewis</h1>
+                            <p>Creative technologist <a href="http://fiascodesign.co.uk/" target="_blank">FiascoDesign</a>. Maker of web things. Joint owner <a href="http://mountainandco.uk/" target="_blank">mountainandco</a>.</p>
+                        </div>
+
+                    </article>
+                }
+               
 
             </div>
 

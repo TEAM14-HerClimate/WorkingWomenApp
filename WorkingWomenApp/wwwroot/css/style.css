@@ -950,27 +950,27 @@ sup {
 
 
     .brand h1 {
-        font-size: 4rem;
+        font-size: 2rem;
         color: #1E1E1E;
         margin-bottom: 0.5rem;
     }
 
     .brand p {
         color: #1E1E1E;
-        font-size: 3rem;
+        font-size:1.5rem;
     }
 
 .form-group {
     margin-bottom: 2rem;
     position: relative;
-    font-size: 2rem;
+    font-size: 1rem;
 }
 
     .form-group label {
         display: block;
         margin-bottom: 0.5rem;
         color: #1E1E1E;
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 500;
     }
 

@@ -42,6 +42,7 @@ namespace WorkingWomenApp.Controllers
         [ProtectAction(SecurityModule.Profile, SecuritySubModule.UserProfile, SecuritySystemAction.CreateAndEdit)]
         public async Task<ActionResult> Details(Guid? id, UserProfileDtos? profileDtos = null)
         {
+
             var profile = _mapper.Map<UserProfile>(profileDtos);
             if (id == Guid.Empty)
             {
@@ -58,6 +59,7 @@ namespace WorkingWomenApp.Controllers
         public async Task<ActionResult> UserProfile(Guid id)
         {
                 var profile=await _unitOfWork.ProfileRepository.GetAsync(x => x.Id == id, includeProperties: "User"); 
+                  
                 var profiledto = _mapper.Map<UserProfileDtos>(profile);
           
             return View(profiledto);

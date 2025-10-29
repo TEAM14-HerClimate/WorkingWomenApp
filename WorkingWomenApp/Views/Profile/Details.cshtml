@@ -10,7 +10,7 @@
     Layout = "_LayoutDashboard";
 }
 <div class="row">
-    <div class="col-md-6 offset-md-3 mt-5">
+    <div class="col-md-10 offset-md-1 mt-5">
         <div class="form-card">
             <div class="brand">
 
@@ -24,22 +24,30 @@
                 @Html.HiddenFor(model => model.UserId)
                 <div class="row">
                     <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.IsPregnant, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.RadioButtonFor(model => model.IsPregnant, new { htmlAttributes = new { @class = "form-control", placeholder = "Suzan" } })
+
+                        @Html.ValidationMessageFor(model => model.IsPregnant, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.PregnancyWeeks, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextBoxFor(model => model.PregnancyWeeks, new { @type = "number", @min=1})
+                        @Html.ValidationMessageFor(model => model.IsPregnant, "", new { @class = "text-danger" })
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.IsMother, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.DropDownListFor(model => model.Profession,
-                            new SelectList(Enum.GetValues(typeof(Profession))),
-                            "Select a category",
-                            new { @class = "form-control" }))
+                        @Html.RadioButtonFor(model => model.IsMother, new { htmlAttributes = new { @class = "form-control", placeholder = "Suzan" } })
 
                         @Html.ValidationMessageFor(model => model.IsMother, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.IsMother, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.DropDownListFor(model => model.Profession,
-                            new SelectList(Enum.GetValues(typeof(Profession))),
-                            "Select a category",
-                            new { @class = "form-control" }))
+                        @Html.LabelFor(model => model.NumberOfChidren, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextBoxFor(model => model.NumberOfChidren, new { @type = "number", @min = 1 })
 
-                        @Html.ValidationMessageFor(model => model.IsMother, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NumberOfChidren, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="row">
@@ -51,13 +59,13 @@
                     </div>
                   
                     <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.IsMother, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Profession, htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.DropDownListFor(model => model.Profession,
                                  new SelectList(Enum.GetValues(typeof(Profession))),
                                  "Select a category",
                                  new { @class = "form-control" }))
-
-                        @Html.ValidationMessageFor(model => model.IsMother, "", new { @class = "text-danger" })
+                        
+                        @Html.ValidationMessageFor(model => model.Profession, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="row">
