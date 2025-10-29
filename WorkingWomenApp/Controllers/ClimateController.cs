@@ -43,11 +43,7 @@ namespace WorkingWomenApp.Controllers
         [ProtectAction(SecurityModule.Climate, SecuritySubModule.ClimateAdmin, SecuritySystemAction.CreateAndEdit)]
         public async Task<ActionResult> Details(Guid? id , ArticleDto? articleDto = null)
         {
-            //if (articleDto==Guid.Empty(Empty))
-            //{
-            //    articleDto.Id = (Guid)id;
-            //}
-                
+           
             var article = _mapper.Map<Article>(articleDto);
             await _unitOfWork.ArticleRepository.AddAsync(article);
             await _unitOfWork.SaveChangesAsync();

@@ -58,7 +58,7 @@ namespace WorkingWomenApp.Controllers
                 await _unitOfWork.ProfileRepository.UpdateAsync(profile);
             }
             await _unitOfWork.SaveChangesAsync();
-            return Redirect("/Profile");
+            return RedirectToAction("UserProfile", new { UserId = profile.UserId });
         }
         public async Task<ActionResult> UserProfile()
         {

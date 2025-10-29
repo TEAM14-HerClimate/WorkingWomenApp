@@ -15,9 +15,9 @@ namespace WorkingWomenApp.Database.enums
     }
     public enum Profession
     {
-        Health,
-        Climate,
-        GeneralKnowledge
+        Teacher,
+        Doctor,
+        Lawyer
     }
     public enum ChildcareCenter
     {
